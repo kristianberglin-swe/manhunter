@@ -582,4 +582,21 @@ pollGamepad=function(){originalPoll();if(!pad.connected){pad.dx=movement.x;pad.d
 window.addEventListener('contextmenu',e=>e.preventDefault());
 window.addEventListener('blur',()=>{movement.x=movement.y=aim.x=aim.y=0;fireHeld=false;mouse.down=false;sprint=false});
 })();
+</script>
+<script>
+// V55: iPhone overview camera. Zoom out the entire game world rather than
+// shrinking collision geometry or changing movement/gameplay physics.
+(function(){
+  const mobileOverview=window.matchMedia('(pointer:coarse)').matches;
+  if(!mobileOverview)return;
+  const zoom=0.66;
+  const previousDraw=draw;
+  draw=function(){
+    // Fill the whole display before scaling: no gray/black letterbox borders.
+    g.save();g.setTransform(1,0,0,1,0,0);
+    g.fillStyle='#a28a68';g.fillRect(0,0,W,H);
+    g.translate(W/2,H/2);g.scale(zoom,zoom);g.translate(-W/2,-H/2);
+    try{previousDraw();}finally{g.restore();}
+  };
+})();
 </script></html>
