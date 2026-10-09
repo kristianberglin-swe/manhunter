@@ -397,18 +397,26 @@ function spawnTactical(reinforcement=false){
  const glass=new THREE.MeshStandardMaterial({color:0x283635,roughness:.28});
  box(3.4,.50,1.64,paint,0,.67,0,g);box(1.42,.77,1.52,paint,.53,1.20,0,g);
  box(1.16,.035,1.26,glass,.52,1.62,0,g);
+ box(.08,.18,1.40,detailMats.trim,1.20,1.12,0,g);
+ box(.08,.18,1.40,detailMats.trim,-.40,1.12,0,g);
  box(1.16,.06,1.32,mud,-.97,.94,0,g);
  for(const xx of [-1.14,1.14])for(const zz of [-.78,.78]){
   const wheel=cyl(.39,.39,.19,mats.black,xx,.40,zz,g,12);wheel.rotation.x=Math.PI/2;
   cyl(.18,.18,.20,mats.metal,xx,.40,zz,g,10).rotation.x=Math.PI/2;
  }
  for(const zz of [-.56,.56]){box(.24,.16,.12,detailMats.trim,1.67,.82,zz,g);box(.24,.12,.12,detailMats.rust,-1.67,.82,zz,g)}
+ // Tactical vehicle detailing: headlights, rear brake lenses, roof armor and antenna.
+ const headlightMat=new THREE.MeshBasicMaterial({color:0xffe5a2});
+ const tailMat=new THREE.MeshBasicMaterial({color:0xb21d12});
+ for(const zz of [-.54,.54]){box(.09,.17,.25,headlightMat,1.74,.82,zz,g);box(.09,.15,.23,tailMat,-1.74,.83,zz,g)}
+ box(1.02,.08,1.32,mats.metal,.50,1.66,0,g);
+ const antenna=cyl(.025,.025,.85,mats.black,-.32,2.06,.61,g,6);antenna.rotation.z=.12;
  const mount=new THREE.Group();mount.position.set(-.85,1.61,0);g.add(mount);
  cyl(.27,.31,.36,mats.metal,0,0,0,mount);
  box(.22,.18,1.08,mats.black,0,.27,-.49,mount);
  box(.14,.12,.48,mats.metal,0,.30,-1.18,mount);
  box(.28,.16,.30,mats.black,0,.36,-.08,mount);
- const t={group:g,mount,x,z,hp:245,dead:false,cool:1.4,goal:null,turn:0,reinforcement};
+ const t={group:g,mount,x,z,hp:245,dead:false,cool:1.4,goal:null,turn:0,trail:0,reinforcement};
  tacticals.push(t);flashAction(reinforcement?'FIENDENS FÖRSTÄRKNING: TACTICAL!':'FIENDENS TACTICAL I OMRÅDET');
 }
 function destroyTactical(t){
@@ -441,14 +449,14 @@ function updateTacticals(dt){
   if(len>.5){vx/=len;vz/=len;
    const speed=2.0, nx=t.x+vx*speed*dt,nz=t.z+vz*speed*dt;
    if(!blocked(nx,nz,1.65,t)){
-    t.x=nx;t.z=nz;t.group.position.set(nx,0,nz);
+    t.x=nx;t.z=nz;t.group.position.set(nx,0,nz);t.trail+=dt;if(t.trail>.32){t.trail=0;vehicleDust(t.x,t.z,t.group.rotation.y);}
     const heading=Math.atan2(-vz,vx);t.group.rotation.y+=Math.atan2(Math.sin(heading-t.group.rotation.y),Math.cos(heading-t.group.rotation.y))*Math.min(1,dt*2.0);
    }else {
      // If the direct route is obstructed, try steering around the obstacle.
      const sideA={x:-vz,z:vx},sideB={x:vz,z:-vx};
      const alternatives=[sideA,sideB,{x:(vx+sideA.x)*.707,z:(vz+sideA.z)*.707},{x:(vx+sideB.x)*.707,z:(vz+sideB.z)*.707}];
      const detour=alternatives.find(v=>!blocked(t.x+v.x*speed*dt*2,t.z+v.z*speed*dt*2,1.65,t));
-     if(detour){t.x+=detour.x*speed*dt;t.z+=detour.z*speed*dt;t.group.position.set(t.x,0,t.z);const heading=Math.atan2(-detour.z,detour.x);t.group.rotation.y+=Math.atan2(Math.sin(heading-t.group.rotation.y),Math.cos(heading-t.group.rotation.y))*Math.min(1,dt*2);}
+     if(detour){t.x+=detour.x*speed*dt;t.z+=detour.z*speed*dt;t.group.position.set(t.x,0,t.z);t.trail+=dt;if(t.trail>.32){t.trail=0;vehicleDust(t.x,t.z,t.group.rotation.y);}const heading=Math.atan2(-detour.z,detour.x);t.group.rotation.y+=Math.atan2(Math.sin(heading-t.group.rotation.y),Math.cos(heading-t.group.rotation.y))*Math.min(1,dt*2);}
      else {t.turn=0;t.goal=null;}
     }
   }
@@ -466,8 +474,30 @@ function updateTacticals(dt){
 }
 
 function blocked(x,z,r=.36,ignoreTactical=null){if(Math.abs(x)>42||Math.abs(z)>41)return true;if(tacticals.some(t=>t!==ignoreTactical&&!t.dead&&Math.hypot(x-t.x,z-t.z)<1.65+r))return true;for(const o of obstacles){if(o.kind==='vegetation')continue;if(Math.abs(x-o.x)<o.w/2+r&&Math.abs(z-o.z)<o.d/2+r)return true}return false}
+// Tactical line-of-sight check: sample between two soldiers, ignoring their own footprints.
+function combatSight(ax,az,bx,bz){
+ const distance=Math.hypot(bx-ax,bz-az);
+ if(distance<1.5)return true;
+ const samples=Math.ceil(distance/.85);
+ for(let i=2;i<samples-1;i++){
+  const t=i/samples;
+  if(blocked(ax+(bx-ax)*t,az+(bz-az)*t,.12))return false;
+ }
+ return true;
+}
+function tacticalStep(e,dx,dz,dt,speed){
+ const length=Math.hypot(dx,dz);if(length<.01)return;
+ let ux=dx/length,uz=dz/length;
+ if(blocked(e.x+ux*1.15,e.z+uz*1.15,.43)){
+  const side=e.tactics?.side||1;
+  const px=-uz*side,pz=ux*side;
+  if(!blocked(e.x+px*1.3,e.z+pz*1.3,.43)){ux=px;uz=pz}
+  else if(!blocked(e.x-px*1.3,e.z-pz*1.3,.43)){ux=-px;uz=-pz}
+ }
+ move(e,ux,uz,dt,speed);
+}
 function move(e,dx,dz,dt,speed){let nx=e.x+dx*speed*dt,nz=e.z+dz*speed*dt;if(!blocked(nx,e.z))e.x=nx;if(!blocked(e.x,nz))e.z=nz;e.g.position.set(e.x,0,e.z);e.walk+=Math.hypot(dx,dz)*speed*dt*3.4;e.g.userData.motion=Math.hypot(dx,dz)*speed;for(let i=0;i<2;i++){e.legs[i].rotation.x=Math.sin(e.walk+i*Math.PI)*Math.min(0.6,Math.hypot(dx,dz)*.5);e.arms[i].rotation.x=Math.sin(e.walk+i*Math.PI)*.1}}
-const keys={},moveStick={x:0,y:0},aimStick={x:0,y:0};let aimActive=false,fireHeld=false,firePulse=false,aimWasExtended=false,mouseAim={x:0,z:-1};let squadMode='defense';let designatedTarget=null,designatedUntil=0;function setSquadMode(mode){squadMode=mode;for(const a of allies){if(a){a.nav=null;a.coverGoal=null}}const atk=document.getElementById('attackMode'),def=document.getElementById('defenseMode');if(atk&&def){atk.style.outline=mode==='attack'?'3px solid #ffb25b':'none';def.style.outline=mode==='defense'?'3px solid #8cd0e3':'none'}if(typeof showActionFeedback==='function')showActionFeedback(mode==='attack'?'GRUPP: ATTACK!':'GRUPP: TA SKYDD!')}document.getElementById('attackMode').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();setSquadMode('attack')});document.getElementById('defenseMode').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();setSquadMode('defense')});setSquadMode('defense');window.addEventListener('keydown',e=>{keys[e.code]=true;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(e.code==='KeyR')reload();if(e.code==='KeyG')throwGrenade();if(e.code==='KeyP')paused=!paused});window.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false;moveStick.x=moveStick.y=aimStick.x=aimStick.y=0;fireHeld=false;aimWasExtended=false});
+const keys={},moveStick={x:0,y:0},aimStick={x:0,y:0};let aimActive=false,fireHeld=false,firePulse=false,aimWasExtended=false,mouseAim={x:0,z:-1};let squadMode='defense';let designatedTarget=null,designatedUntil=0;function setSquadMode(mode){squadMode=mode;for(const a of allies){if(a){a.nav=null;a.coverGoal=null;a.assaultCover=null}}const atk=document.getElementById('attackMode'),def=document.getElementById('defenseMode');if(atk&&def){atk.style.outline=mode==='attack'?'3px solid #ffb25b':'none';def.style.outline=mode==='defense'?'3px solid #8cd0e3':'none'}if(typeof showActionFeedback==='function')showActionFeedback(mode==='attack'?'GRUPP: ATTACK!':'GRUPP: TA SKYDD!')}document.getElementById('attackMode').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();setSquadMode('attack')});document.getElementById('defenseMode').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();setSquadMode('defense')});setSquadMode('defense');window.addEventListener('keydown',e=>{keys[e.code]=true;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(e.code==='KeyR')reload();if(e.code==='KeyG')throwGrenade();if(e.code==='KeyP')paused=!paused});window.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false;moveStick.x=moveStick.y=aimStick.x=aimStick.y=0;fireHeld=false;aimWasExtended=false});
 // Floating dual-stick controls: the thumb's touchdown position is the center.
 function setupStick(id,out,isAim){
  const el=$(id);let pid=null,originX=0,originY=0,homeLeft=0,homeTop=0;
@@ -498,6 +528,16 @@ function ejectCasing(e,angle){
  mesh.position.set(e.x+sideX*.24+backX*.16,.94,e.z+sideZ*.24+backZ*.16);
  mesh.rotation.z=Math.PI/2;mesh.castShadow=false;scene.add(mesh);
  casings.push({mesh,x:mesh.position.x,z:mesh.position.z,vx:sideX*rng(1.1,2.5)+rng(-.4,.4),vz:sideZ*rng(1.1,2.5)+rng(-.4,.4),vy:rng(1.4,2.4),life:rng(1.15,1.75),spin:rng(-17,17)});
+}
+// Lightweight wheel dust: pooled-style short-lived particles, capped at two per tick.
+function vehicleDust(x,z,heading){
+ const dx=Math.cos(heading),dz=-Math.sin(heading);
+ for(const side of [-1,1]){
+  const px=x-dx*1.35+dz*side*.66,pz=z-dz*1.35-dx*side*.66;
+  const mesh=new THREE.Mesh(new THREE.SphereGeometry(.14,5,4),dustMats[side===1?0:1]);
+  mesh.position.set(px,.12,pz);scene.add(mesh);
+  particles.push({mesh,x:px,z:pz,vx:-dx*.35+rng(-.25,.25),vz:-dz*.35+rng(-.25,.25),vy:.32,life:.65,maxLife:.65,dust:true});
+ }
 }
 function dustImpact(x,z,heavy=false){
  for(let k=0;k<(heavy?28:16);k++){
@@ -537,8 +577,30 @@ function markPlayerTarget(angle){
  }
  if(best){designatedTarget=best;designatedUntil=time+3.5}
 }
+// Nearby incoming fire makes ordinary enemies break their position and seek cover.
+function applySuppressiveFire(shooter,angle){
+ if(shooter!==player&&!allies.includes(shooter))return;
+ const dx=-Math.sin(angle),dz=-Math.cos(angle);
+ for(const enemy of enemies){
+  if(enemy.dead||enemy.type==='hvt')continue;
+  const rx=enemy.x-shooter.x,rz=enemy.z-shooter.z;
+  const along=rx*dx+rz*dz;
+  const lateral=Math.abs(rx*dz-rz*dx);
+  if(along<1||along>32||lateral>2.25)continue;
+  // Buildings block suppression just as they block shots.
+  if(!combatSight(shooter.x,shooter.z,enemy.x,enemy.z))continue;
+  if(!enemy.tactics)enemy.tactics={goal:null,next:0,hold:0,side:Math.random()<.5?-1:1};
+  const ai=enemy.tactics;
+  ai.suppressedUntil=Math.max(ai.suppressedUntil||0,time+1.7);
+  if(time>(ai.suppressionRefresh||0)){
+   ai.suppressionRefresh=time+.8;
+   ai.next=time-.01;ai.hold=time;
+  }
+ }
+}
 function shoot(e,angle,fromEnemy=false){
  if(e===player)markPlayerTarget(angle);
+ if(!fromEnemy)applySuppressiveFire(e,angle);
  if(e.g?.userData?.weaponRig)e.g.userData.weaponRig.recoil=1;
  const anim=e.g?.userData?.anim;
  if(anim?.fireAction){anim.fireUntil=performance.now()+170;anim.fireAction.reset().play();anim.fireAction.setEffectiveWeight(.20)}
@@ -553,6 +615,9 @@ function shoot(e,angle,fromEnemy=false){
   flash.position.set(x+dx*.10,1.17,z+dz*.10);scene.add(flash);
   particles.push({mesh:flash,x:flash.position.x,z:flash.position.z,vx:dx*1.2,vz:dz*1.2,vy:0,life:.035+i*.009});
  }
+ const bloom=new THREE.Mesh(new THREE.SphereGeometry(.19,8,6),new THREE.MeshBasicMaterial({color:0xffd582,transparent:true,opacity:.65,depthWrite:false,depthTest:false}));
+ bloom.position.set(x+dx*.2,1.17,z+dz*.2);scene.add(bloom);
+ particles.push({mesh:bloom,x:bloom.position.x,z:bloom.position.z,vx:dx*.4,vz:dz*.4,vy:0,life:.055,maxLife:.055,fade:true});
  ejectCasing(e,angle);
  if(fromEnemy)beep(130,.05,'sawtooth',.024);
 }
@@ -633,7 +698,26 @@ function deathEffect(e){
  }
 }
 function explode(x,z){playLegacyExplosion();blastEffect(x,z);for(const t of tacticals)if(!t.dead){const dist=Math.hypot(x-t.x,z-t.z);if(dist<5.2){t.hp-=Math.round(180*(1-dist/6));if(t.hp<=0)destroyTactical(t)}}for(const o of [...obstacles]){const dist=Math.hypot(Math.max(0,Math.abs(x-o.x)-o.w/2),Math.max(0,Math.abs(z-o.z)-o.d/2));if(dist<5.3)damageStructure(o,Math.round(235*(1-dist/6.5)),x,z,true)}for(const e of [...enemies,...allies,player])if(!e.dead&&Math.hypot(e.x-x,e.z-z)<4.4)hurt(e,120,(e.x-x)/4.4,(e.z-z)/4.4)}
-function hurt(e,damage,dx=0,dz=0){if(e.dead)return;if(e.type==='player')lastPlayerDamageTime=time;e.hp-=damage;if(e.type!=='player')bloodHit(e,dx,dz);if(e.type==='ally')updateAllyHealth(e);if(e.type==='player'){health=Math.max(0,e.hp);if(health<=0&&!e.dead){e.dead=true;deathTimer=1.8;shots=0;fireHeld=false;flashAction('SOLDAT TRÄFFAD!')}}else if(e.hp<=0){e.dead=true;deathEffect(e);knockdown(e,dx,dz);if(e.type==='hvt'){hvtDead=true;victoryTimer=2.1;score+=500;flashAction('HVT TRÄFFAD!')}else if(e.type==='enemy')score+=50;else if(e.type==='ally'){playSquadVoice(manDownVoice);beep(180,.6,'sawtooth',.12)}}updateHud()}
+function impactSparks(x,z,dx=0,dz=0){
+ const sparkMat=new THREE.MeshBasicMaterial({color:0xffd47a,transparent:true,opacity:.95,depthWrite:false});
+ for(let k=0;k<7;k++){
+  const m=new THREE.Mesh(new THREE.BoxGeometry(.035,.035,rng(.12,.3)),sparkMat);
+  const a=rng(0,Math.PI*2),v=rng(1.8,5);
+  m.position.set(x,rng(.3,1.1),z);m.rotation.y=a;scene.add(m);
+  particles.push({mesh:m,x,z,vx:Math.cos(a)*v+dx*.12,vz:Math.sin(a)*v+dz*.12,vy:rng(1.4,3.6),life:rng(.12,.29),maxLife:.29,fade:true});
+ }
+}
+function updateHitReactions(dt){
+ for(const e of [player,...allies,...enemies]){
+  if(!e||e.dead||!e.g)continue;
+  e.hitReact=Math.max(0,(e.hitReact||0)-dt);
+  const strength=e.hitReact>0?Math.sin((.23-e.hitReact)*24)*e.hitReact/.23:0;
+  e.g.rotation.z=strength*(e.hitSide||1)*.13;
+  e.g.position.y=Math.max(0,strength*.055);
+ }
+}
+function hurt(e,damage,dx=0,dz=0){if(e.dead)return;
+ e.hitReact=.23;e.hitSide=dx>=0?1:-1;if(e.type==='player')lastPlayerDamageTime=time;e.hp-=damage;if(e.type!=='player')bloodHit(e,dx,dz);if(e.type==='ally')updateAllyHealth(e);if(e.type==='player'){health=Math.max(0,e.hp);if(health<=0&&!e.dead){e.dead=true;deathTimer=1.8;shots=0;fireHeld=false;flashAction('SOLDAT TRÄFFAD!')}}else if(e.hp<=0){e.dead=true;deathEffect(e);knockdown(e,dx,dz);if(e.type==='hvt'){hvtDead=true;victoryTimer=2.1;score+=500;flashAction('HVT TRÄFFAD!')}else if(e.type==='enemy')score+=50;else if(e.type==='ally'){playSquadVoice(manDownVoice);beep(180,.6,'sawtooth',.12)}}updateHud()}
 // Recover slowly only when a solid obstacle actually blocks an enemy's view.
 // Health regeneration stops at 50 HP and pauses for 3 seconds after a hit.
 let lastPlayerDamageTime=-999,healthHudRefresh=0;
@@ -668,7 +752,7 @@ function updateHud(){$('hp').textContent=Math.round(health);$('hpbar').style.wid
 function update(dt){updateTacticals(dt);
  for(const e of [player,...allies,...enemies])if(e?.g?.userData.referenceLegs){
   const speed=e.g.userData.motion||0;const phase=(e.walk||0)*2.45;
-  for(let i=0;i<2;i++)e.g.userData.referenceLegs[i].rotation.x=Math.sin(phase+i*Math.PI)*Math.min(.48,speed*.20);
+  for(let i=0;i<2;i++)e.g.userData.referenceLegs[i].rotation.x=THREE.MathUtils.damp(e.g.userData.referenceLegs[i].rotation.x,Math.sin(phase+i*Math.PI)*Math.min(.48,speed*.20),12,dt);
  }
 
  for(const m of activeMixers)if(m.group.parent && !m.group.userData.referenceTorso){
@@ -712,7 +796,15 @@ for(let i=0;i<allies.length;i++){
  const sideX=Math.cos(player.angle),sideZ=-Math.sin(player.angle);
  const backX=Math.sin(player.angle),backZ=Math.cos(player.angle);
  const aliveEnemies=enemies.filter(e=>!e.dead);
- let target=aliveEnemies.filter(e=>squadMode!=='attack'||Math.hypot(e.x-player.x,e.z-player.z)<29).reduce((best,e)=>!best||Math.hypot(e.x-a.x,e.z-a.z)<Math.hypot(best.x-a.x,best.z-a.z)?e:best,null);
+ // Coordinated assault: the lead soldier suppresses the closest threat while
+ // flankers prefer other visible threats when available.
+ const nearby=aliveEnemies.filter(e=>squadMode!=='attack'||Math.hypot(e.x-player.x,e.z-player.z)<29)
+  .sort((u,v)=>Math.hypot(u.x-player.x,u.z-player.z)-Math.hypot(v.x-player.x,v.z-player.z));
+ let target=nearby.reduce((best,e)=>!best||Math.hypot(e.x-a.x,e.z-a.z)<Math.hypot(best.x-a.x,best.z-a.z)?e:best,null);
+ if(squadMode==='attack'&&nearby.length>1&&i>0){
+  const alternative=nearby.filter(e=>combatSight(a.x,a.z,e.x,e.z));
+  if(alternative.length>1)target=alternative[Math.min(i,alternative.length-1)];
+ }
  // Defense: only engage the enemy designated by the player's latest shots.
  if(squadMode==='defense'){
   target=(designatedTarget&&!designatedTarget.dead&&designatedTarget.hp>0&&time<designatedUntil)?designatedTarget:null;
@@ -728,6 +820,23 @@ for(let i=0;i<allies.length;i++){
   tx=target.x-ex/el*standoff-ez/el*flank*2.8;
   tz=target.z-ez/el*standoff+ex/el*flank*2.8;
   if(blocked(tx,tz,.5)){tx=target.x-ex/el*5;tz=target.z-ez/el*5}
+  // If the direct flank is exposed, use the nearest reachable building corner
+  // that breaks enemy sight while remaining within supporting distance.
+  if(!a.assaultCover||time>a.assaultCover.until||Math.hypot(a.assaultCover.x-target.x,a.assaultCover.z-target.z)>19){
+   let bestCover=null,bestValue=-Infinity;
+   for(const o of obstacles){if(Math.hypot(o.x-a.x,o.z-a.z)>15)continue;
+    for(const [cx,cz] of [[o.x-o.w/2-1.15,o.z],[o.x+o.w/2+1.15,o.z],[o.x,o.z-o.d/2-1.15],[o.x,o.z+o.d/2+1.15]]){
+     if(blocked(cx,cz,.5)||Math.hypot(cx-target.x,cz-target.z)>19)continue;
+     const protectedSpot=!combatSight(cx,cz,target.x,target.z);
+     const value=(protectedSpot?8:0)-Math.hypot(cx-a.x,cz-a.z)*.55-Math.hypot(cx-tx,cz-tz)*.25;
+     if(value>bestValue){bestValue=value;bestCover={x:cx,z:cz,until:time+2.4+i*.3}}
+    }
+   }
+   a.assaultCover=bestCover;
+  }
+  if(a.assaultCover&&Math.hypot(a.x-target.x,a.z-target.z)>8){
+   tx=a.assaultCover.x;tz=a.assaultCover.z;
+  }
  }else if(squadMode==='defense'){
   if(!a.coverGoal||time>a.coverGoal.until||blocked(a.coverGoal.x,a.coverGoal.z,.48)){
    let best=null,score=-Infinity;
@@ -765,7 +874,7 @@ for(let i=0;i<allies.length;i++){
   move(a,ux,uz,dt,speed);
   if(enemyDist>=17)a.angle=Math.atan2(-ux,-uz);
  }
- if(target&&enemyDist<(squadMode==='attack'?24:30)){a.angle=Math.atan2(-(target.x-a.x),-(target.z-a.z));a.cool-=dt;if(a.cool<=0){shoot(a,a.angle,false);a.cool=squadMode==='attack'?rng(.35,.7):rng(.75,1.25)}}
+ if(target&&enemyDist<(squadMode==='attack'?24:30)){a.angle=Math.atan2(-(target.x-a.x),-(target.z-a.z));a.cool-=dt;if(a.cool<=0&&combatSight(a.x,a.z,target.x,target.z)){shoot(a,a.angle,false);a.cool=squadMode==='attack'?rng(.35,.7):rng(.75,1.25)}}
  a.g.rotation.y=THREE.MathUtils.lerp(a.g.rotation.y,a.angle,Math.min(1,dt*9));
 }
  for(const a of allies){const bar=a.g?.userData?.allyHealth;if(bar){bar.root.quaternion.copy(camera.quaternion);updateAllyHealth(a)}}
@@ -814,7 +923,7 @@ for(let i=0;i<allies.length;i++){
      if(speed>.01)move(e,vx/speed,vz/speed,dt,closest<13?4.4:3.35);
    }
    e.cool-=dt;
-   if(closest<22&&e.cool<=0){shoot(e,e.angle+rng(-.085,.085),true);e.cool=rng(Math.max(.3,.65-level*.025),Math.max(.55,1.05-level*.03))}
+   if(closest<22&&e.cool<=0&&combatSight(e.x,e.z,threat.x,threat.z)){shoot(e,e.angle+rng(-.085,.085),true);e.cool=rng(Math.max(.3,.65-level*.025),Math.max(.55,1.05-level*.03))}
    continue;
   }
   if(!e.tactics)e.tactics={goal:null,next:0,hold:0,side:Math.random()<.5?-1:1};
@@ -841,7 +950,8 @@ for(let i=0;i<allies.length;i++){
      if(travel>19||range<5.5||range>29)continue;
      const mx=(cx+target.x)/2,mz=(cz+target.z)/2;
      const protectedByWall=blocked(mx,mz,.08);
-     const score=(protectedByWall?10:0)-travel*.65-Math.abs(range-14)*.18+Math.random()*1.5;
+     const underFire=time<(ai.suppressedUntil||0);
+     const score=(protectedByWall?(underFire?24:10):0)-travel*(underFire?.38:.65)-Math.abs(range-14)*.18+Math.random()*1.5;
      if(score>bestScore){bestScore=score;best={x:cx,z:cz}}
     }
    }
@@ -862,12 +972,17 @@ for(let i=0;i<allies.length;i++){
     // Retreat when the player gets too close; avoid long straight charges.
     if(d<5.8){vx-=dx/d*1.4;vz-=dz/d*1.4}
     const len=Math.max(.01,Math.hypot(vx,vz));
-    move(e,vx/len,vz/len,dt,2.55+Math.min(1.25,(level-1)*.22));
+    tacticalStep(e,vx/len,vz/len,dt,2.55+Math.min(1.25,(level-1)*.22));
    }
   }
+  if(d<23&&!combatSight(e.x,e.z,target.x,target.z)&&time>(ai.losRetry||0)){
+   ai.losRetry=time+rng(1.3,2.4);
+   ai.next=Math.min(ai.next,time+.12);
+   ai.hold=Math.min(ai.hold,time+.2);
+  }
   e.cool-=dt;
-  if(e.cool<=0&&d<Math.min(25,17+(level-1)*1.6)){
-   shoot(e,e.angle+rng(-.075,.075),true);
+  if(e.cool<=0&&d<Math.min(25,17+(level-1)*1.6)&&combatSight(e.x,e.z,target.x,target.z)){
+   shoot(e,e.angle+rng(time<(ai.suppressedUntil||0)?-.22:-.075,time<(ai.suppressedUntil||0)?.22:.075),true);
    e.cool=rng(Math.max(.42,1.2-(level-1)*.12),Math.max(.8,1.85-(level-1)*.16));
    if(Math.random()<Math.min(.28,.10+(level-1)*.035)){ai.next=time+rng(.5,1.2);ai.hold=time+rng(.15,.5)}
   }
@@ -892,7 +1007,8 @@ for(let i=0;i<allies.length;i++){
    t.cool=rng(.14,.26);
   }
  }
- for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=b.vx*dt;b.z+=b.vz*dt;b.life-=dt;b.mesh.position.set(b.x,b.tower?Math.max(1.15,b.mesh.position.y-7*dt):1.22,b.z);let hit=false;const hitTactical=!b.fromEnemy&&damageTactical(b.x,b.z,b.damage||18);const impactObj=hitTactical?null:structureAt(b.x,b.z,.03);if(hitTactical){hit=true}else if(impactObj){damageStructure(impactObj,b.tower?12:fromBulletDamage(b),b.x,b.z);hit=true}else if(blocked(b.x,b.z,.03))hit=true;else for(const e of (b.fromEnemy?[player,...allies]:enemies)){if(!e.dead&&Math.hypot(e.x-b.x,e.z-b.z)<.43){hurt(e,b.damage,b.vx/53,b.vz/53);hit=true;break}}if(hit){dustImpact(b.x,b.z);for(let k=0;k<3;k++){const spark=ball(.018,mats.gold,b.x,.18,b.z);spark.castShadow=false;particles.push({mesh:spark,x:b.x,z:b.z,vx:rng(-2,2),vz:rng(-2,2),vy:rng(.6,2.1),life:rng(.08,.20)})}}if(hit||b.life<=0){scene.remove(b.mesh);bullets.splice(i,1)}}
+ updateHitReactions(dt);
+ for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=b.vx*dt;b.z+=b.vz*dt;b.life-=dt;b.mesh.position.set(b.x,b.tower?Math.max(1.15,b.mesh.position.y-7*dt):1.22,b.z);let hit=false;const hitTactical=!b.fromEnemy&&damageTactical(b.x,b.z,b.damage||18);const impactObj=hitTactical?null:structureAt(b.x,b.z,.03);if(hitTactical){hit=true}else if(impactObj){damageStructure(impactObj,b.tower?12:fromBulletDamage(b),b.x,b.z);hit=true}else if(blocked(b.x,b.z,.03))hit=true;else for(const e of (b.fromEnemy?[player,...allies]:enemies)){if(!e.dead&&Math.hypot(e.x-b.x,e.z-b.z)<.43){hurt(e,b.damage,b.vx/53,b.vz/53);hit=true;break}}if(hit){if(impactObj||(!hitTactical&&blocked(b.x,b.z,.03)))impactSparks(b.x,b.z,b.vx/53,b.vz/53);dustImpact(b.x,b.z);for(let k=0;k<3;k++){const spark=ball(.018,mats.gold,b.x,.18,b.z);spark.castShadow=false;particles.push({mesh:spark,x:b.x,z:b.z,vx:rng(-2,2),vz:rng(-2,2),vy:rng(.6,2.1),life:rng(.08,.20)})}}if(hit||b.life<=0){scene.remove(b.mesh);bullets.splice(i,1)}}
 for(let i=grenades.length-1;i>=0;i--){let g=grenades[i];g.t+=dt*1.7;let t=Math.min(1,g.t);g.x=g.sx+(g.tx-g.sx)*t;g.z=g.sz+(g.tz-g.sz)*t;g.mesh.position.set(g.x,.2+Math.sin(t*Math.PI)*2,g.z);if(t>=1){explode(g.x,g.z);scene.remove(g.mesh);grenades.splice(i,1)}}
 for(let i=casings.length-1;i>=0;i--){const c=casings[i];c.life-=dt;c.vy-=8.5*dt;c.x+=c.vx*dt;c.z+=c.vz*dt;c.mesh.position.set(c.x,Math.max(.055,c.mesh.position.y+c.vy*dt),c.z);c.mesh.rotation.x+=c.spin*dt;if(c.mesh.position.y<=.056){c.vy=0;c.vx*=Math.max(0,1-10*dt);c.vz*=Math.max(0,1-10*dt)}if(c.life<=0){scene.remove(c.mesh);casings.splice(i,1)}}
 for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.life-=dt;p.x+=p.vx*dt;p.z+=p.vz*dt;p.vy-=15*dt;p.mesh.position.set(p.x,Math.max(.04,p.mesh.position.y+p.vy*dt),p.z);p.mesh.scale.multiplyScalar(p.shock?1.19:p.dust?1.035:.96);if(p.spin){p.mesh.rotation.x+=dt*8;p.mesh.rotation.z+=dt*6}if(p.shock)p.mesh.material.opacity=Math.max(0,p.life/p.maxLife)*.7;if(p.fade)p.mesh.material.opacity=Math.max(0,p.life/p.maxLife)*.9;if(p.dust)p.mesh.material.opacity=Math.min(.76,Math.max(0,p.life/p.maxLife)*.76);if(p.life<=0){scene.remove(p.mesh);particles.splice(i,1)}}
