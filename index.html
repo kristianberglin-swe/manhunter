@@ -1,4 +1,4 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#171811"><title>MANHUNTER 12.2 — Tactical fix</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#181711;color:#fff;font-family:system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:12px;pointer-events:none;gap:8px}.panel{background:#101813d9;border:1px solid #a99c73a0;border-radius:10px;padding:9px 12px;box-shadow:0 4px 20px #0009;font-size:12px;letter-spacing:.07em}.panel b{font-size:17px;letter-spacing:.03em}.panel small{color:#d6c9a8}.bar{height:7px;background:#333;border-radius:8px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#d43e2f,#edb76d)}#mission{text-align:right}#message{position:absolute;top:24%;left:50%;transform:translateX(-50%);font-size:25px;font-weight:900;text-shadow:0 3px 12px black;text-align:center;pointer-events:none;white-space:nowrap}#actionFeedback{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:8;pointer-events:none;opacity:0;background:#161c17df;border:1px solid #e2bd79;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:900;letter-spacing:.07em;white-space:nowrap}#controls{position:absolute;inset:0;pointer-events:none}.stick{z-index:5;position:absolute;bottom:max(24px,env(safe-area-inset-bottom));width:142px;height:142px;border:2px solid #ffffff77;border-radius:50%;background:#141c1b55;pointer-events:auto;touch-action:none}.stick:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;left:43px;top:43px;background:#dfd5b7b9;border:2px solid white;transform:translate(var(--dx,0px),var(--dy,0px))}.stick.left{left:18px}.stick.right{right:18px}#fire{z-index:12;position:absolute;right:20px;bottom:255px;pointer-events:auto;width:74px;height:74px;border-radius:50%;border:2px solid #f4c77c;background:#812b20e8;color:#fff;font-weight:900;font-size:14px;touch-action:none;user-select:none;box-shadow:0 0 18px #0008}#fire:active{background:#e14b2e}#grenade{z-index:12;touch-action:none;user-select:none;position:absolute;right:160px;bottom:35px;pointer-events:auto;border:1px solid #d7ad6c;background:#201c13cb;color:white;border-radius:50%;width:64px;height:64px;font-weight:800}#reload{z-index:12;touch-action:none;user-select:none;position:absolute;right:22px;bottom:178px;pointer-events:auto;border:1px solid #ffffff88;background:#171717bb;color:white;border-radius:12px;padding:12px;font-weight:800}#intro{position:absolute;inset:0;background:linear-gradient(135deg,#121710ee,#3b3024d9);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;z-index:5}h1{font-size:clamp(42px,9vw,110px);margin:0;font-weight:1000;letter-spacing:-.05em;color:#f4e7cd;text-shadow:0 5px 0 #6a211b,0 10px 30px #000}h2{letter-spacing:.35em;color:#d1ad76}#start,#next{border:2px solid #e7a759;border-radius:10px;background:#8f231c;color:white;padding:15px 32px;font-size:18px;font-weight:900;cursor:pointer}#next{display:none;position:absolute;top:60%;left:50%;transform:translateX(-50%);z-index:4}#error{position:absolute;inset:0;display:none;place-items:center;padding:25px;background:#151515;z-index:9;text-align:center}#pause{pointer-events:auto;cursor:pointer;border:1px solid #aaa;background:#111b;border-radius:8px;color:white;padding:10px 14px}@media(max-width:650px){.panel{padding:6px 8px;font-size:10px}.panel b{font-size:13px}.stick{width:112px;height:112px}.stick:after{left:33px;top:33px;width:42px;height:42px}.stick.left{left:10px}.stick.right{right:10px}#fire{right:14px;bottom:215px;width:61px;height:61px;font-size:12px}#grenade{right:133px;bottom:116px;width:52px;height:52px;font-size:11px}#reload{right:14px;bottom:150px;padding:8px;font-size:11px}#hud{padding:6px}#message{font-size:19px}}#intro{overflow-y:auto;justify-content:safe center;overscroll-behavior:contain}#intro h1{font-size:clamp(28px,7vh,70px)}#intro h2{font-size:clamp(11px,2.5vh,20px);margin:5px 0}#intro p{margin:5px 0;font-size:12px}#assetbox{max-height:30vh;overflow-y:auto;margin:5px auto!important;padding:7px!important}#start{position:sticky;bottom:4px;flex-shrink:0;z-index:10;box-shadow:0 4px 18px #000;padding:12px 28px}@media(max-height:450px){#intro{padding:5px 16px;justify-content:flex-start}#intro h1{font-size:28px}#intro h2{font-size:12px}#assetbox{max-height:20vh}#intro p{font-size:10px}} 
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#171811"><title>MANHUNTER 12.4 — Tactical fix</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#181711;color:#fff;font-family:system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:12px;pointer-events:none;gap:8px}.panel{background:#101813d9;border:1px solid #a99c73a0;border-radius:10px;padding:9px 12px;box-shadow:0 4px 20px #0009;font-size:12px;letter-spacing:.07em}.panel b{font-size:17px;letter-spacing:.03em}.panel small{color:#d6c9a8}.bar{height:7px;background:#333;border-radius:8px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#d43e2f,#edb76d)}#mission{text-align:right}#message{position:absolute;top:24%;left:50%;transform:translateX(-50%);font-size:25px;font-weight:900;text-shadow:0 3px 12px black;text-align:center;pointer-events:none;white-space:nowrap}#actionFeedback{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:8;pointer-events:none;opacity:0;background:#161c17df;border:1px solid #e2bd79;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:900;letter-spacing:.07em;white-space:nowrap}#controls{position:absolute;inset:0;pointer-events:none}.stick{z-index:5;position:absolute;bottom:max(24px,env(safe-area-inset-bottom));width:142px;height:142px;border:2px solid #ffffff77;border-radius:50%;background:#141c1b55;pointer-events:auto;touch-action:none}.stick:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;left:43px;top:43px;background:#dfd5b7b9;border:2px solid white;transform:translate(var(--dx,0px),var(--dy,0px))}.stick.left{left:18px}.stick.right{right:18px}#fire{z-index:12;position:absolute;right:20px;bottom:255px;pointer-events:auto;width:74px;height:74px;border-radius:50%;border:2px solid #f4c77c;background:#812b20e8;color:#fff;font-weight:900;font-size:14px;touch-action:none;user-select:none;box-shadow:0 0 18px #0008}#fire:active{background:#e14b2e}#grenade{z-index:12;touch-action:none;user-select:none;position:absolute;right:160px;bottom:35px;pointer-events:auto;border:1px solid #d7ad6c;background:#201c13cb;color:white;border-radius:50%;width:64px;height:64px;font-weight:800}#reload{z-index:12;touch-action:none;user-select:none;position:absolute;right:22px;bottom:178px;pointer-events:auto;border:1px solid #ffffff88;background:#171717bb;color:white;border-radius:12px;padding:12px;font-weight:800}#intro{position:absolute;inset:0;background:linear-gradient(135deg,#121710ee,#3b3024d9);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;z-index:5}h1{font-size:clamp(42px,9vw,110px);margin:0;font-weight:1000;letter-spacing:-.05em;color:#f4e7cd;text-shadow:0 5px 0 #6a211b,0 10px 30px #000}h2{letter-spacing:.35em;color:#d1ad76}#start,#next{border:2px solid #e7a759;border-radius:10px;background:#8f231c;color:white;padding:15px 32px;font-size:18px;font-weight:900;cursor:pointer}#next{display:none;position:absolute;top:60%;left:50%;transform:translateX(-50%);z-index:4}#error{position:absolute;inset:0;display:none;place-items:center;padding:25px;background:#151515;z-index:9;text-align:center}#pause{pointer-events:auto;cursor:pointer;border:1px solid #aaa;background:#111b;border-radius:8px;color:white;padding:10px 14px}@media(max-width:650px){.panel{padding:6px 8px;font-size:10px}.panel b{font-size:13px}.stick{width:112px;height:112px}.stick:after{left:33px;top:33px;width:42px;height:42px}.stick.left{left:10px}.stick.right{right:10px}#fire{right:14px;bottom:215px;width:61px;height:61px;font-size:12px}#grenade{right:133px;bottom:116px;width:52px;height:52px;font-size:11px}#reload{right:14px;bottom:150px;padding:8px;font-size:11px}#hud{padding:6px}#message{font-size:19px}}#intro{overflow-y:auto;justify-content:safe center;overscroll-behavior:contain}#intro h1{font-size:clamp(28px,7vh,70px)}#intro h2{font-size:clamp(11px,2.5vh,20px);margin:5px 0}#intro p{margin:5px 0;font-size:12px}#assetbox{max-height:30vh;overflow-y:auto;margin:5px auto!important;padding:7px!important}#start{position:sticky;bottom:4px;flex-shrink:0;z-index:10;box-shadow:0 4px 18px #000;padding:12px 28px}@media(max-height:450px){#intro{padding:5px 16px;justify-content:flex-start}#intro h1{font-size:28px}#intro h2{font-size:12px}#assetbox{max-height:20vh}#intro p{font-size:10px}} 
 #bossHud{position:absolute;top:78px;left:50%;transform:translateX(-50%);width:min(520px,70vw);z-index:7;pointer-events:none;display:none;gap:5px;flex-direction:column}
 .bossEntry{background:#090e10dd;border:1px solid #b77d4c;border-radius:7px;padding:5px 9px;color:#ffe0bd;font:700 11px system-ui;letter-spacing:.08em;box-shadow:0 2px 12px #0008}
 .bossEntry .bossLine{display:flex;justify-content:space-between;gap:12px}
@@ -158,7 +158,7 @@ const detailMats={trim:new THREE.MeshStandardMaterial({color:0xe0caa4,roughness:
 const cyl=(r1,r2,h,mat,x,y,z,parent=scene,n=8)=>{let m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,n),mat);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m};
 function box(w,h,d,mat,x,y,z,parent=scene){let m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m}function ball(r,mat,x,y,z,parent=scene){let m=new THREE.Mesh(new THREE.SphereGeometry(r,8,6),mat);m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m}
 const terrainCanvas=document.createElement('canvas');terrainCanvas.width=terrainCanvas.height=512;const tc=terrainCanvas.getContext('2d');tc.fillStyle='#a99576';tc.fillRect(0,0,512,512);let seed=16387;const rand=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);for(let i=0;i<52000;i++){const x=rand()*512,y=rand()*512,r=.2+rand()*1.8;tc.fillStyle=rand()>.55?'rgba(48,36,23,.12)':'rgba(243,220,170,.18)';tc.fillRect(x,y,r,r)}for(let i=0;i<1600;i++){tc.fillStyle='rgba(59,54,39,.19)';tc.beginPath();tc.ellipse(rand()*512,rand()*512,rand()*2+.3,rand()*.8+.2,rand()*6.28,0,6.28);tc.fill()}const sandTexture=new THREE.CanvasTexture(terrainCanvas);sandTexture.wrapS=sandTexture.wrapT=THREE.RepeatWrapping;sandTexture.repeat.set(14,14);sandTexture.colorSpace=THREE.SRGBColorSpace;mats.sand=new THREE.MeshStandardMaterial({map:sandTexture,roughness:1});
-const ground=box(145,.4,145,mats.sand,0,-.3,0);ground.receiveShadow=true;const wallCanvas=document.createElement('canvas');wallCanvas.width=wallCanvas.height=256;const wc=wallCanvas.getContext('2d');wc.fillStyle='#c9b48d';wc.fillRect(0,0,256,256);for(let i=0;i<8500;i++){wc.fillStyle=rand()>.5?'rgba(54,40,26,.075)':'rgba(255,244,209,.1)';wc.fillRect(rand()*256,rand()*256,rand()*3+.5,rand()*3+.5)}const wallTex=new THREE.CanvasTexture(wallCanvas);wallTex.colorSpace=THREE.SRGBColorSpace;mats.wall=new THREE.MeshStandardMaterial({map:wallTex,roughness:1});
+const ground=box(180,.4,180,mats.sand,0,-.3,0);ground.receiveShadow=true;const wallCanvas=document.createElement('canvas');wallCanvas.width=wallCanvas.height=256;const wc=wallCanvas.getContext('2d');wc.fillStyle='#c9b48d';wc.fillRect(0,0,256,256);for(let i=0;i<8500;i++){wc.fillStyle=rand()>.5?'rgba(54,40,26,.075)':'rgba(255,244,209,.1)';wc.fillRect(rand()*256,rand()*256,rand()*3+.5,rand()*3+.5)}const wallTex=new THREE.CanvasTexture(wallCanvas);wallTex.colorSpace=THREE.SRGBColorSpace;mats.wall=new THREE.MeshStandardMaterial({map:wallTex,roughness:1});
 let tacticals=[],tacticalRespawns=0,tacticalPending=-1;let wrecks=[],pickups=[],falling=[],victoryTimer=-1,deathTimer=-1,reloadTimer=0;let obstacles=[],buildings=[],decor=[],enemies=[],allies=[],bullets=[],particles=[],grenades=[],game=false,paused=false,level=1,health=100,mag=30,mags=4,gn=3,score=0,shots=0,lastShot=0,lastBurst=false,time=0,hvtDead=false;
 const rng=(a,b)=>a+Math.random()*(b-a),clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 // Level themes and local-only scoreboard (no network requests).
@@ -281,6 +281,10 @@ function perimeterFence(){
  side(42.4,41.4,-42.4,41.4);side(-42.4,41.4,-42.4,-41.4);
 }
 // Each mission uses a distinct, reproducible layout, with rotating outskirts and landmarks.
+function arenaScale(){return 1+Math.min(10,Math.max(1,level)-1)*(.5/9)}
+function arenaHalfX(){return 42*arenaScale()}
+function arenaHalfZ(){return 41*arenaScale()}
+function arenaCoord(v){return v*arenaScale()}
 function missionLayout(){
  const layouts=[
   {name:'Ökenpostering',rot:0,mirror:false,outer:[[33,-30,5,6],[-29,-22,7,7],[29,-22,8,6],[-29,24,8,7],[30,24,8,7],[-2,-32,7,6],[2,31,9,6],[-35,1,6,6],[35,-3,6,7]],inner:[[-9,-7,8,6],[9,-7,7,7],[-9,8,7,6],[10,9,9,6],[1,-14,6,5]],hvt:0},
@@ -291,7 +295,7 @@ function missionLayout(){
  ];
  const l=layouts[(level-1)%layouts.length];const cycle=Math.floor((level-1)/layouts.length);
  const rotation=(l.rot+cycle)%4,mirror=cycle%2?!l.mirror:l.mirror;
- const pt=(x,z)=>{if(mirror)x=-x;for(let i=0;i<rotation;i++){const old=x;x=-z;z=old;}return [x,z]};
+ const pt=(x,z)=>{if(mirror)x=-x;for(let i=0;i<rotation;i++){const old=x;x=-z;z=old;}return [x*arenaScale(),z*arenaScale()]};
  return {...l,pt,cycle};
 }
 let currentMissionLayout=null;
@@ -301,9 +305,9 @@ function makeLevelScenery(){
  const add=(g)=>{scene.add(g);decor.push(g);return g};
  const mat=(hex)=>new THREE.MeshStandardMaterial({color:hex,roughness:.94,metalness:kind==='industrial'?.15:0});
  const accent=mat(theme.accent),road=mat(theme.road),foliage=mat(theme.foliage);
- function slab(x,z,w,d,m=road,y=.015){const g=new THREE.Mesh(new THREE.BoxGeometry(w,.025,d),m);g.position.set(x,y,z);g.receiveShadow=true;add(g)}
- function prop(x,z,w,h,d,m=accent){const g=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);g.position.set(x,h/2,z);g.castShadow=true;add(g)}
- function disc(x,z,r,m=foliage){const g=new THREE.Mesh(new THREE.CylinderGeometry(r,r,.04,7),m);g.position.set(x,.025,z);add(g)}
+ function slab(x,z,w,d,m=road,y=.015){const g=new THREE.Mesh(new THREE.BoxGeometry(w*arenaScale(),.025,d*arenaScale()),m);g.position.set(arenaCoord(x),y,arenaCoord(z));g.receiveShadow=true;add(g)}
+ function prop(x,z,w,h,d,m=accent){const g=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);g.position.set(arenaCoord(x),h/2,arenaCoord(z));g.castShadow=true;add(g)}
+ function disc(x,z,r,m=foliage){const g=new THREE.Mesh(new THREE.CylinderGeometry(r,r,.04,7),m);g.position.set(arenaCoord(x),.025,arenaCoord(z));add(g)}
  if(['highway','industrial','harbor','palace','fortress','town'].includes(kind)){
   const roads=kind==='highway'?[[0,0,11,84],[0,0,84,6]]:kind==='harbor'?[[0,0,9,84],[-18,0,6,84]]:[[0,0,5,84],[0,0,84,5]];
   for(const [x,z,w,d] of roads)slab(x,z,w,d);
@@ -359,16 +363,16 @@ function makeLevelScenery(){
 function makeWorld(){
  turrets.length=0;clearWorld();perimeterFence();
  const l=missionLayout();currentMissionLayout=l;
- for(const [x,z,w,d] of [...l.outer,...l.inner]){const [px,pz]=l.pt(x,z);structure(px,pz,w,d,(level+x+z)%3)}
+ for(const [x,z,w,d] of [...l.outer,...l.inner]){const [px,pz]=l.pt(x,z);structure(px,pz,w*arenaScale(),d*arenaScale(),(level+x+z)%3)}
  const towerPositions=[[17,-2],[-18,3],[33,-19],[-34,23],[4,-35]];
  for(const [x,z] of towerPositions.slice(0,Math.min(5,Math.max(0,level-1)))){const [tx,tz]=l.pt(x,z);if(!blocked(tx,tz,1.4))tower(tx,tz)}
  for(const [x,z] of [[3,6],[-2,-6],[15,14],[-23,4],[23,5],[-18,-29],[18,29]]){const [px,pz]=l.pt(x,z);if(!blocked(px,pz,1.5))vehicle(px,pz)}
  for(const [x,z] of [[-3,-11],[6,12],[-17,-14],[25,-12],[-25,18]]){const [px,pz]=l.pt(x,z);rubble(px,pz)}
  for(const [x,z,w] of [[-2,2,3],[9,1,3],[-13,1,2]]){const [px,pz]=l.pt(x,z);barricade(px,pz,w)}
- for(let i=0;i<90;i++){const x=rng(-39,39),z=rng(-38,38);if(Math.hypot(x,z-3)<9||blockedWorldDecor(x,z))continue;Math.random()<.42?vegetation(x,z):rubble(x,z)}
+ for(let i=0;i<90;i++){const x=rng(-arenaCoord(39),arenaCoord(39)),z=rng(-arenaCoord(38),arenaCoord(38));if(Math.hypot(x,z-3)<9||blockedWorldDecor(x,z))continue;Math.random()<.42?vegetation(x,z):rubble(x,z)}
  for(const [kind,x,z] of [['ammo',-6,10],['health',11,5],['grenade',-18,5],['ammo',22,-14],['health',-24,-24],['grenade',29,18],['ammo',-5,-25],['health',6,30],['grenade',-30,27]]){const [px,pz]=l.pt(x,z);if(!blocked(px,pz,1))createPickup(kind,px,pz)}
  makeLevelScenery();
- const grit=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),mats.wall2,750);const dummy=new THREE.Object3D();for(let i=0;i<750;i++){dummy.position.set(rng(-43,43),.013,rng(-42,42));dummy.rotation.set(0,rng(0,6.28),0);dummy.scale.set(rng(.025,.14),.018,rng(.03,.13));dummy.updateMatrix();grit.setMatrixAt(i,dummy.matrix)}grit.instanceMatrix.needsUpdate=true;grit.castShadow=false;scene.add(grit);decor.push(grit)
+ const grit=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),mats.wall2,750);const dummy=new THREE.Object3D();for(let i=0;i<750;i++){dummy.position.set(rng(-arenaCoord(43),arenaCoord(43)),.013,rng(-arenaCoord(42),arenaCoord(42)));dummy.rotation.set(0,rng(0,6.28),0);dummy.scale.set(rng(.025,.14),.018,rng(.03,.13));dummy.updateMatrix();grit.setMatrixAt(i,dummy.matrix)}grit.instanceMatrix.needsUpdate=true;grit.castShadow=false;scene.add(grit);decor.push(grit)
 }
 function missionHvtPosition(){
   const l=currentMissionLayout||missionLayout();
@@ -380,7 +384,7 @@ function missionHvtPosition(){
     const [x,z]=l.pt(bx,bz);
     for(const [dx,dz] of [[w/2+2.2,0],[-w/2-2.2,0],[0,d/2+2.2],[0,-d/2-2.2]]){
       const px=x+dx,pz=z+dz;
-      if(Math.abs(px)>40||Math.abs(pz)>40||blocked(px,pz,.9)||Math.hypot(px,pz-3)<18)continue;
+      if(Math.abs(px)>arenaHalfX()-2||Math.abs(pz)>arenaHalfZ()-2||blocked(px,pz,.9)||Math.hypot(px,pz-3)<18)continue;
       if(enemies.some(e=>Math.hypot(e.x-px,e.z-pz)<2))continue;
       candidates.push([px,pz]);
     }
@@ -392,8 +396,8 @@ function missionHvtPosition(){
   // Fallback: find a valid location along the map perimeter.
   for(let i=0;i<80;i++){
     const side=Math.floor(Math.random()*4),v=rng(-35,35);
-    const x=side===0?-37:side===1?37:v;
-    const z=side===2?-37:side===3?37:v;
+    const x=side===0?-arenaCoord(37):side===1?arenaCoord(37):arenaCoord(v);
+    const z=side===2?-arenaCoord(37):side===3?arenaCoord(37):arenaCoord(v);
     if(!blocked(x,z,.9)&&Math.hypot(x,z-3)>18)return [x,z];
   }
   return [37,-30];
@@ -487,9 +491,9 @@ function spawn(){hvtSightAnnounced=false;activeMixers.length=0;if(player&&player
    for(let k=0;k<70;k++){
      const a=(j*2.39996+k*.61),r=3.5+(k%8)*.7;
      const x=hvtPos[0]+Math.cos(a)*r,z=hvtPos[1]+Math.sin(a)*r;
-     if(Math.abs(x)<38&&Math.abs(z)<38&&!blocked(x,z,.85)&&!enemies.some(e=>Math.hypot(e.x-x,e.z-z)<2)){spot=[x,z];break}
+     if(Math.abs(x)<arenaHalfX()-3&&Math.abs(z)<arenaHalfZ()-3&&!blocked(x,z,.85)&&!enemies.some(e=>Math.hypot(e.x-x,e.z-z)<2)){spot=[x,z];break}
    }
-   if(!spot){for(let k=0;k<100;k++){const x=rng(-37,37),z=rng(-37,37);if(!blocked(x,z,.85)&&Math.hypot(x-player.x,z-player.z)>15&&!enemies.some(e=>Math.hypot(e.x-x,e.z-z)<2)){spot=[x,z];break}}}
+   if(!spot){for(let k=0;k<100;k++){const x=rng(-arenaCoord(37),arenaCoord(37)),z=rng(-arenaCoord(37),arenaCoord(37));if(!blocked(x,z,.85)&&Math.hypot(x-player.x,z-player.z)>15&&!enemies.some(e=>Math.hypot(e.x-x,e.z-z)<2)){spot=[x,z];break}}}
    if(spot)enemies.push(soldier('hvt',...spot));
  }
  const positions=[[-26,-17],[27,24],[-27,18],[24,-24],[5,29],[-13,-29],[33,5],[-34,-6],[3,-35],[-30,31],[30,-32],[-36,-29],[37,31]];let spawned=0;for(const [x,z] of positions){if(spawned>=Math.min(positions.length,4+Math.floor((level-1)*1.6)))break;const [px,pz]=l.pt(x,z);if(blocked(px,pz,.8)||Math.hypot(px-hvtPos[0],pz-hvtPos[1])<3)continue;enemies.push(soldier('enemy',px,pz));spawned++}
@@ -523,9 +527,9 @@ function spawn(){hvtSightAnnounced=false;activeMixers.length=0;if(player&&player
 function spawnTactical(reinforcement=false){
  if(level<2||tacticals.some(t=>!t.dead))return;
  const starts=reinforcement?[[-37,30],[-35,-30],[36,29]]:[[32,33],[-34,-32],[35,-32]];
- let spot=starts.find(([x,z])=>!blocked(x,z,2.2)&&Math.hypot(x-player.x,z-player.z)>17);
- if(!spot)spot=starts.find(([x,z])=>Math.hypot(x-player.x,z-player.z)>17)||[36,32];
- const [x,z]=spot,g=new THREE.Group();g.position.set(x,0,z);scene.add(g);
+ let spot=starts.find(([x,z])=>!blocked(arenaCoord(x),arenaCoord(z),2.2)&&Math.hypot(arenaCoord(x)-player.x,arenaCoord(z)-player.z)>17);
+ if(!spot)spot=starts.find(([x,z])=>!blocked(arenaCoord(x),arenaCoord(z),2.2)&&Math.hypot(arenaCoord(x)-player.x,arenaCoord(z)-player.z)>17)||[36,32];
+ const [x,z]=spot.map(arenaCoord),g=new THREE.Group();g.position.set(x,0,z);scene.add(g);
  const paint=new THREE.MeshStandardMaterial({color:0x713b32,metalness:.28,roughness:.72});
  const mud=new THREE.MeshStandardMaterial({color:0x594e3b,roughness:1});
  const glass=new THREE.MeshStandardMaterial({color:0x283635,roughness:.28});
@@ -568,36 +572,32 @@ function damageTactical(x,z,damage){
 // Patrol across the entire arena using a low-resolution A* route around buildings.
 const tacticalPatrolPoints=[[-34,-33],[0,-34],[34,-33],[35,0],[34,33],[0,34],[-34,33],[-35,0],[-20,-18],[20,18],[22,-18],[-22,18]];
 function tacticalRoute(t,gx,gz){
- const step=4,low=-38,high=38,n=20;
+ const step=2.8*arenaScale(),low=-39*arenaScale(),n=Math.ceil(78/2.8)+1;
  const coord=v=>Math.max(0,Math.min(n-1,Math.round((v-low)/step)));
  const index=(i,j)=>i*n+j;
- const ix=coord(t.x),iz=coord(t.z),start=index(ix,iz);
- let tx=coord(gx),tz=coord(gz);
- const valid=(i,j)=>i>=0&&j>=0&&i<n&&j<n&&!blocked(low+i*step,low+j*step,1.8,t);
- if(!valid(tx,tz)){
-  let best=Infinity;
-  for(let i=0;i<n;i++)for(let j=0;j<n;j++)if(valid(i,j)){
-   const d=(i-tx)**2+(j-tz)**2;if(d<best){best=d;tx=i;tz=j;}
-  }
- }
- const dest=index(tx,tz),open=[start],g=new Float64Array(n*n).fill(Infinity),parent=new Int32Array(n*n).fill(-1),closed=new Uint8Array(n*n);
- g[start]=0;let loops=0,found=false;
- while(open.length&&loops++<450){
-  let bestAt=0,bestScore=Infinity;
-  for(let k=0;k<open.length;k++){const id=open[k],i=Math.floor(id/n),j=id%n;const f=g[id]+Math.hypot(i-tx,j-tz);if(f<bestScore){bestScore=f;bestAt=k;}}
-  const id=open.splice(bestAt,1)[0];if(closed[id])continue;closed[id]=1;if(id===dest){found=true;break;}
-  const i=Math.floor(id/n),j=id%n;
+ const valid=(i,j)=>i>=0&&j>=0&&i<n&&j<n&&!blocked(low+i*step,low+j*step,1.9,t);
+ function nearest(i,j){if(valid(i,j))return [i,j];for(let r=1;r<n;r++){let best=null,dist=Infinity;for(let x=Math.max(0,i-r);x<=Math.min(n-1,i+r);x++)for(let z=Math.max(0,j-r);z<=Math.min(n-1,j+r);z++){if(!valid(x,z))continue;const d=(x-i)**2+(z-j)**2;if(d<dist){dist=d;best=[x,z]}}if(best)return best}return null}
+ const start=nearest(coord(t.x),coord(t.z)),end=nearest(coord(gx),coord(gz));
+ if(!start||!end)return [];
+ const dest=index(...end),begin=index(...start),open=[begin],g=new Float64Array(n*n).fill(Infinity),parent=new Int32Array(n*n).fill(-1),closed=new Uint8Array(n*n);
+ g[begin]=0;let loops=0,best=begin,bestH=Infinity;
+ while(open.length&&loops++<2400){
+  let at=0,score=Infinity;
+  for(let k=0;k<open.length;k++){const id=open[k],i=Math.floor(id/n),j=id%n;const f=g[id]+Math.hypot(i-end[0],j-end[1]);if(f<score){score=f;at=k}}
+  const id=open.splice(at,1)[0];if(closed[id])continue;closed[id]=1;
+  const i=Math.floor(id/n),j=id%n,h=Math.hypot(i-end[0],j-end[1]);if(h<bestH){bestH=h;best=id}
+  if(id===dest)break;
   for(const [di,dj] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
    const ni=i+di,nj=j+dj;if(!valid(ni,nj))continue;
    if(di&&dj&&(!valid(i+di,j)||!valid(i,j+dj)))continue;
    const nid=index(ni,nj),cost=g[id]+Math.hypot(di,dj);
-   if(cost<g[nid]){g[nid]=cost;parent[nid]=id;open.push(nid);}
+   if(cost<g[nid]){g[nid]=cost;parent[nid]=id;open.push(nid)}
   }
  }
- if(!found)return [];
- const route=[];let at=dest;
- while(at!==start&&at>=0&&route.length<400){route.push({x:low+Math.floor(at/n)*step,z:low+(at%n)*step});at=parent[at];}
- route.reverse();route.push({x:gx,z:gz});return route;
+ const route=[];let at=best;
+ while(at!==begin&&at>=0&&route.length<900){route.push({x:low+Math.floor(at/n)*step,z:low+(at%n)*step});at=parent[at]}
+ route.reverse();if(best===dest&&!blocked(gx,gz,1.9,t))route.push({x:gx,z:gz});
+ return route;
 }
 function updateTacticals(dt){
  if(tacticalPending>=0){tacticalPending-=dt;if(tacticalPending<0)spawnTactical(true)}
@@ -610,12 +610,12 @@ function updateTacticals(dt){
   targets.sort((a,b)=>Math.hypot(a.x-t.x,a.z-t.z)-Math.hypot(b.x-t.x,b.z-t.z));
   const target=playerVisible?player:targets[0];
   const dx=target.x-t.x,dz=target.z-t.z,d=Math.hypot(dx,dz);
-  t.turn-=dt;t.routeTimer-=dt;
+  t.turn-=dt;t.routeTimer-=dt;const oldTX=t.x,oldTZ=t.z;
   if(!t.goal||Math.hypot(t.goal.x-t.x,t.goal.z-t.z)<4){
    // Visit distant patrol sectors in sequence rather than orbiting the player.
    for(let i=0;i<tacticalPatrolPoints.length;i++){
     t.patrolIndex=(t.patrolIndex+1)%tacticalPatrolPoints.length;
-    const [px,pz]=tacticalPatrolPoints[t.patrolIndex];
+    const [px,pz]=tacticalPatrolPoints[t.patrolIndex].map(arenaCoord);
     if(Math.hypot(px-t.x,pz-t.z)>14){t.goal={x:px,z:pz};break;}
    }
    t.route=[];t.routeTimer=0;
@@ -637,9 +637,10 @@ function updateTacticals(dt){
     t.group.rotation.y+=Math.atan2(Math.sin(heading-t.group.rotation.y),Math.cos(heading-t.group.rotation.y))*Math.min(1,dt*3.0);
     moved=true;break;
    }
-   if(!moved){t.routeTimer=0;t.stuck+=dt;}
-   else t.stuck=0;
-   if(t.stuck>1.6){t.goal=null;t.route=[];t.stuck=0;}
+   if(!moved||Math.hypot(t.x-oldTX,t.z-oldTZ)<dt*.5){t.stuck+=dt;}else t.stuck=Math.max(0,t.stuck-dt*2);
+   if(t.stuck>1.2){t.routeTimer=0;t.route=[];t.stuck=0;t.stuckCount=(t.stuckCount||0)+1;
+     if(t.stuckCount>2){t.goal=null;t.stuckCount=0;}
+   }
   }
   // Prioritize the player when visible; never fire through buildings.
   const canFire=d<44&&combatSight(t.x,t.z,target.x,target.z)&&(target!==player||playerVisible);
@@ -656,7 +657,7 @@ function updateTacticals(dt){
  }
 }
 
-function blocked(x,z,r=.36,ignoreTactical=null){if(Math.abs(x)>42||Math.abs(z)>41)return true;if(tacticals.some(t=>t!==ignoreTactical&&!t.dead&&Math.hypot(x-t.x,z-t.z)<1.65+r))return true;for(const o of obstacles){if(o.kind==='vegetation')continue;if(Math.abs(x-o.x)<o.w/2+r&&Math.abs(z-o.z)<o.d/2+r)return true}return false}
+function blocked(x,z,r=.36,ignoreTactical=null){if(Math.abs(x)>arenaHalfX()||Math.abs(z)>arenaHalfZ())return true;if(tacticals.some(t=>t!==ignoreTactical&&!t.dead&&Math.hypot(x-t.x,z-t.z)<1.65+r))return true;for(const o of obstacles){if(o.kind==='vegetation')continue;if(Math.abs(x-o.x)<o.w/2+r&&Math.abs(z-o.z)<o.d/2+r)return true}return false}
 // Tactical line-of-sight check: sample between two soldiers, ignoring their own footprints.
 function combatSight(ax,az,bx,bz){
  if(smokeBlocksSight(ax,az,bx,bz))return false;
@@ -1098,30 +1099,30 @@ let extended=aimActive&&Math.hypot(aimStick.x,aimStick.y)>.57;let triggerAim=ext
 // Targets rotate with the player's heading, so allies do not form a single-file line.
 
 // Ally pathfinding: A* grid avoids buildings rather than repeatedly pushing into walls.
-const allyNavStep=2.0,allyNavMin=-40,allyNavSize=41;
-function allyCell(x,z){return [Math.max(0,Math.min(allyNavSize-1,Math.round((x-allyNavMin)/allyNavStep))),Math.max(0,Math.min(allyNavSize-1,Math.round((z-allyNavMin)/allyNavStep)))];}
+const allyNavStep=2.0; const allyNavMin=()=>-Math.ceil(arenaHalfX()/allyNavStep)*allyNavStep; const allyNavSize=()=>Math.ceil(arenaHalfX()*2/allyNavStep)+1;
+function allyCell(x,z){return [Math.max(0,Math.min(allyNavSize()-1,Math.round((x-allyNavMin())/allyNavStep))),Math.max(0,Math.min(allyNavSize()-1,Math.round((z-allyNavMin())/allyNavStep)))];}
 function allyRoute(sx,sz,tx,tz){
  const [ax,az]=allyCell(sx,sz),[bx,bz]=allyCell(tx,tz);
- const id=(x,z)=>z*allyNavSize+x,open=[id(ax,az)],came=new Map(),cost=new Map([[id(ax,az),0]]),closed=new Set();
+ const id=(x,z)=>z*allyNavSize()+x,open=[id(ax,az)],came=new Map(),cost=new Map([[id(ax,az),0]]),closed=new Set();
  const end=id(bx,bz);let best=id(ax,az),bestDist=Infinity,iterations=0;
  while(open.length&&iterations++<1150){
   let bi=0,bscore=Infinity;
-  for(let j=0;j<open.length;j++){const k=open[j],x=k%allyNavSize,z=Math.floor(k/allyNavSize),f=cost.get(k)+Math.hypot(x-bx,z-bz);if(f<bscore){bscore=f;bi=j}}
-  const cur=open.splice(bi,1)[0],cx=cur%allyNavSize,cz=Math.floor(cur/allyNavSize);
+  for(let j=0;j<open.length;j++){const k=open[j],x=k%allyNavSize(),z=Math.floor(k/allyNavSize()),f=cost.get(k)+Math.hypot(x-bx,z-bz);if(f<bscore){bscore=f;bi=j}}
+  const cur=open.splice(bi,1)[0],cx=cur%allyNavSize(),cz=Math.floor(cur/allyNavSize());
   if(closed.has(cur))continue;closed.add(cur);
   const h=Math.hypot(cx-bx,cz-bz);if(h<bestDist){bestDist=h;best=cur}
   if(cur===end)break;
   for(const [dx,dz] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]){
-   const nx=cx+dx,nz=cz+dz;if(nx<0||nz<0||nx>=allyNavSize||nz>=allyNavSize)continue;
-   const wx=allyNavMin+nx*allyNavStep,wz=allyNavMin+nz*allyNavStep;
+   const nx=cx+dx,nz=cz+dz;if(nx<0||nz<0||nx>=allyNavSize()||nz>=allyNavSize())continue;
+   const wx=allyNavMin()+nx*allyNavStep,wz=allyNavMin()+nz*allyNavStep;
    if(blocked(wx,wz,.43))continue;
-   if(dx&&dz&&(blocked(allyNavMin+nx*allyNavStep,allyNavMin+cz*allyNavStep,.43)||blocked(allyNavMin+cx*allyNavStep,allyNavMin+nz*allyNavStep,.43)))continue;
+   if(dx&&dz&&(blocked(allyNavMin()+nx*allyNavStep,allyNavMin()+cz*allyNavStep,.43)||blocked(allyNavMin()+cx*allyNavStep,allyNavMin()+nz*allyNavStep,.43)))continue;
    const next=id(nx,nz),newCost=cost.get(cur)+(dx&&dz?1.414:1);
    if(newCost<(cost.get(next)??Infinity)){cost.set(next,newCost);came.set(next,cur);open.push(next)}
   }
  }
  const route=[];let node=best;
- while(came.has(node)&&route.length<300){route.push({x:allyNavMin+(node%allyNavSize)*allyNavStep,z:allyNavMin+Math.floor(node/allyNavSize)*allyNavStep});node=came.get(node)}
+ while(came.has(node)&&route.length<300){route.push({x:allyNavMin()+(node%allyNavSize())*allyNavStep,z:allyNavMin()+Math.floor(node/allyNavSize())*allyNavStep});node=came.get(node)}
  route.reverse();return route;
 }
 const squadSlots=[{side:-4.1,back:1.0},{side:4.0,back:1.9},{side:-1.1,back:5.0}];
@@ -1207,7 +1208,7 @@ for(let i=0;i<allies.length;i++){
  while(a.route?.length&&Math.hypot(a.route[0].x-a.x,a.route[0].z-a.z)<1.05)a.route.shift();
  let waypoint=a.route?.length?a.route[0]:n;
  // If there is a clear direct route, don't take an unnecessary grid detour.
- if(combatSight(a.x,a.z,n.x,n.z))waypoint=n;
+ if(!blocked(n.x,n.z,.5)&&combatSight(a.x,a.z,n.x,n.z))waypoint=n;
  let dx=waypoint.x-a.x,dz=waypoint.z-a.z,dist=Math.hypot(dx,dz);
  if(dist>.55){
   let ux=dx/dist,uz=dz/dist;
@@ -1221,7 +1222,10 @@ for(let i=0;i<allies.length;i++){
   for(const other of allies){if(other===a||other.dead)continue;const ox=a.x-other.x,oz=a.z-other.z,od=Math.hypot(ox,oz);if(od>.01&&od<1.8){ux+=ox/od*(1.8-od)*.85;uz+=oz/od*(1.8-od)*.85}}
   const norm=Math.max(.01,Math.hypot(ux,uz));ux/=norm;uz/=norm;
   const speed=squadMode==='attack'?Math.min(9.1,Math.max(3.4,dist*3.1)):Math.min(6.2,Math.max(1.6,dist*1.8));
+  const prevX=a.x,prevZ=a.z;
   move(a,ux,uz,dt,speed);
+  if(Math.hypot(a.x-prevX,a.z-prevZ)<dt*.35){a.stuckFor=(a.stuckFor||0)+dt;}else a.stuckFor=Math.max(0,(a.stuckFor||0)-dt*2);
+  if(a.stuckFor>1.0){a.route=null;a.routeUntil=0;a.nav.until=0;a.assaultCover=null;a.coverGoal=null;a.stuckFor=0;a.detourCount=(a.detourCount||0)+1;}
   if(enemyDist>=17)a.angle=Math.atan2(-ux,-uz);
  }
  if(target&&enemyDist<(squadMode==='attack'?34:30)){a.angle=Math.atan2(-(target.x-a.x),-(target.z-a.z));a.cool-=dt;if(a.cool<=0&&combatSight(a.x,a.z,target.x,target.z)){shoot(a,a.angle,false);a.cool=squadMode==='attack'?rng(.22,.43):rng(.75,1.25)}}
