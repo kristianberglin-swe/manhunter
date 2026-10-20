@@ -1,4 +1,4 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#171811"><title>MANHUNTER 12.6 — Tactical fix</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#181711;color:#fff;font-family:system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:12px;pointer-events:none;gap:8px}.panel{background:#101813d9;border:1px solid #a99c73a0;border-radius:10px;padding:9px 12px;box-shadow:0 4px 20px #0009;font-size:12px;letter-spacing:.07em}.panel b{font-size:17px;letter-spacing:.03em}.panel small{color:#d6c9a8}.bar{height:7px;background:#333;border-radius:8px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#d43e2f,#edb76d)}#mission{text-align:right}#message{position:absolute;top:24%;left:50%;transform:translateX(-50%);font-size:25px;font-weight:900;text-shadow:0 3px 12px black;text-align:center;pointer-events:none;white-space:nowrap}#actionFeedback{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:8;pointer-events:none;opacity:0;background:#161c17df;border:1px solid #e2bd79;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:900;letter-spacing:.07em;white-space:nowrap}#controls{position:absolute;inset:0;pointer-events:none}.stick{z-index:5;position:absolute;bottom:max(24px,env(safe-area-inset-bottom));width:142px;height:142px;border:2px solid #ffffff77;border-radius:50%;background:#141c1b55;pointer-events:auto;touch-action:none}.stick:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;left:43px;top:43px;background:#dfd5b7b9;border:2px solid white;transform:translate(var(--dx,0px),var(--dy,0px))}.stick.left{left:18px}.stick.right{right:18px}#fire{z-index:12;position:absolute;right:20px;bottom:255px;pointer-events:auto;width:74px;height:74px;border-radius:50%;border:2px solid #f4c77c;background:#812b20e8;color:#fff;font-weight:900;font-size:14px;touch-action:none;user-select:none;box-shadow:0 0 18px #0008}#fire:active{background:#e14b2e}#grenade{z-index:12;touch-action:none;user-select:none;position:absolute;right:160px;bottom:35px;pointer-events:auto;border:1px solid #d7ad6c;background:#201c13cb;color:white;border-radius:50%;width:64px;height:64px;font-weight:800}#reload{z-index:12;touch-action:none;user-select:none;position:absolute;right:22px;bottom:178px;pointer-events:auto;border:1px solid #ffffff88;background:#171717bb;color:white;border-radius:12px;padding:12px;font-weight:800}#intro{position:absolute;inset:0;background:linear-gradient(135deg,#121710ee,#3b3024d9);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;z-index:5}h1{font-size:clamp(42px,9vw,110px);margin:0;font-weight:1000;letter-spacing:-.05em;color:#f4e7cd;text-shadow:0 5px 0 #6a211b,0 10px 30px #000}h2{letter-spacing:.35em;color:#d1ad76}#start,#next{border:2px solid #e7a759;border-radius:10px;background:#8f231c;color:white;padding:15px 32px;font-size:18px;font-weight:900;cursor:pointer}#next{display:none;position:absolute;top:60%;left:50%;transform:translateX(-50%);z-index:4}#error{position:absolute;inset:0;display:none;place-items:center;padding:25px;background:#151515;z-index:9;text-align:center}#pause{pointer-events:auto;cursor:pointer;border:1px solid #aaa;background:#111b;border-radius:8px;color:white;padding:10px 14px}@media(max-width:650px){.panel{padding:6px 8px;font-size:10px}.panel b{font-size:13px}.stick{width:112px;height:112px}.stick:after{left:33px;top:33px;width:42px;height:42px}.stick.left{left:10px}.stick.right{right:10px}#fire{right:14px;bottom:215px;width:61px;height:61px;font-size:12px}#grenade{right:133px;bottom:116px;width:52px;height:52px;font-size:11px}#reload{right:14px;bottom:150px;padding:8px;font-size:11px}#hud{padding:6px}#message{font-size:19px}}#intro{overflow-y:auto;justify-content:safe center;overscroll-behavior:contain}#intro h1{font-size:clamp(28px,7vh,70px)}#intro h2{font-size:clamp(11px,2.5vh,20px);margin:5px 0}#intro p{margin:5px 0;font-size:12px}#assetbox{max-height:30vh;overflow-y:auto;margin:5px auto!important;padding:7px!important}#start{position:sticky;bottom:4px;flex-shrink:0;z-index:10;box-shadow:0 4px 18px #000;padding:12px 28px}@media(max-height:450px){#intro{padding:5px 16px;justify-content:flex-start}#intro h1{font-size:28px}#intro h2{font-size:12px}#assetbox{max-height:20vh}#intro p{font-size:10px}} 
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#171811"><title>MANHUNTER 12.7 — Tactical fix</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#181711;color:#fff;font-family:system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:12px;pointer-events:none;gap:8px}.panel{background:#101813d9;border:1px solid #a99c73a0;border-radius:10px;padding:9px 12px;box-shadow:0 4px 20px #0009;font-size:12px;letter-spacing:.07em}.panel b{font-size:17px;letter-spacing:.03em}.panel small{color:#d6c9a8}.bar{height:7px;background:#333;border-radius:8px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#d43e2f,#edb76d)}#mission{text-align:right}#message{position:absolute;top:24%;left:50%;transform:translateX(-50%);font-size:25px;font-weight:900;text-shadow:0 3px 12px black;text-align:center;pointer-events:none;white-space:nowrap}#actionFeedback{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:8;pointer-events:none;opacity:0;background:#161c17df;border:1px solid #e2bd79;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:900;letter-spacing:.07em;white-space:nowrap}#controls{position:absolute;inset:0;pointer-events:none}.stick{z-index:5;position:absolute;bottom:max(24px,env(safe-area-inset-bottom));width:142px;height:142px;border:2px solid #ffffff77;border-radius:50%;background:#141c1b55;pointer-events:auto;touch-action:none}.stick:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;left:43px;top:43px;background:#dfd5b7b9;border:2px solid white;transform:translate(var(--dx,0px),var(--dy,0px))}.stick.left{left:18px}.stick.right{right:18px}#fire{z-index:12;position:absolute;right:20px;bottom:255px;pointer-events:auto;width:74px;height:74px;border-radius:50%;border:2px solid #f4c77c;background:#812b20e8;color:#fff;font-weight:900;font-size:14px;touch-action:none;user-select:none;box-shadow:0 0 18px #0008}#fire:active{background:#e14b2e}#grenade{z-index:12;touch-action:none;user-select:none;position:absolute;right:160px;bottom:35px;pointer-events:auto;border:1px solid #d7ad6c;background:#201c13cb;color:white;border-radius:50%;width:64px;height:64px;font-weight:800}#reload{z-index:12;touch-action:none;user-select:none;position:absolute;right:22px;bottom:178px;pointer-events:auto;border:1px solid #ffffff88;background:#171717bb;color:white;border-radius:12px;padding:12px;font-weight:800}#intro{position:absolute;inset:0;background:linear-gradient(135deg,#121710ee,#3b3024d9);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;z-index:5}h1{font-size:clamp(42px,9vw,110px);margin:0;font-weight:1000;letter-spacing:-.05em;color:#f4e7cd;text-shadow:0 5px 0 #6a211b,0 10px 30px #000}h2{letter-spacing:.35em;color:#d1ad76}#start,#next{border:2px solid #e7a759;border-radius:10px;background:#8f231c;color:white;padding:15px 32px;font-size:18px;font-weight:900;cursor:pointer}#next{display:none;position:absolute;top:60%;left:50%;transform:translateX(-50%);z-index:4}#error{position:absolute;inset:0;display:none;place-items:center;padding:25px;background:#151515;z-index:9;text-align:center}#pause{pointer-events:auto;cursor:pointer;border:1px solid #aaa;background:#111b;border-radius:8px;color:white;padding:10px 14px}@media(max-width:650px){.panel{padding:6px 8px;font-size:10px}.panel b{font-size:13px}.stick{width:112px;height:112px}.stick:after{left:33px;top:33px;width:42px;height:42px}.stick.left{left:10px}.stick.right{right:10px}#fire{right:14px;bottom:215px;width:61px;height:61px;font-size:12px}#grenade{right:133px;bottom:116px;width:52px;height:52px;font-size:11px}#reload{right:14px;bottom:150px;padding:8px;font-size:11px}#hud{padding:6px}#message{font-size:19px}}#intro{overflow-y:auto;justify-content:safe center;overscroll-behavior:contain}#intro h1{font-size:clamp(28px,7vh,70px)}#intro h2{font-size:clamp(11px,2.5vh,20px);margin:5px 0}#intro p{margin:5px 0;font-size:12px}#assetbox{max-height:30vh;overflow-y:auto;margin:5px auto!important;padding:7px!important}#start{position:sticky;bottom:4px;flex-shrink:0;z-index:10;box-shadow:0 4px 18px #000;padding:12px 28px}@media(max-height:450px){#intro{padding:5px 16px;justify-content:flex-start}#intro h1{font-size:28px}#intro h2{font-size:12px}#assetbox{max-height:20vh}#intro p{font-size:10px}} 
 #bossHud{position:absolute;top:78px;left:50%;transform:translateX(-50%);width:min(520px,70vw);z-index:7;pointer-events:none;display:none;gap:5px;flex-direction:column}
 .bossEntry{background:#090e10dd;border:1px solid #b77d4c;border-radius:7px;padding:5px 9px;color:#ffe0bd;font:700 11px system-ui;letter-spacing:.08em;box-shadow:0 2px 12px #0008}
 .bossEntry .bossLine{display:flex;justify-content:space-between;gap:12px}
@@ -619,75 +619,90 @@ function tacticalRoute(t,gx,gz){
 }
 function updateTacticals(dt){
  if(tacticalPending>=0){tacticalPending-=dt;if(tacticalPending<0)spawnTactical(true)}
- for(const t of tacticals){if(t.dead)continue;
-  // Recover vehicles embedded by old spawn points or changing map layouts.
-  if(blocked(t.x,t.z,1.85,t)){
-    let free=null;
-    for(let ring=2;ring<=22&&!free;ring+=2){
-      for(let k=0;k<32;k++){
-        const a=k*Math.PI/16,px=t.x+ring*Math.cos(a),pz=t.z+ring*Math.sin(a);
-        if(!blocked(px,pz,2.15,t)){free=[px,pz];break}
-      }
-    }
-    if(free){t.x=free[0];t.z=free[1];t.group.position.set(t.x,0,t.z);t.goal=null;t.route=[];t.routeTimer=0;t.stuck=0;}
-  }
-  if(t.bossHvt&&!t.bossHvt.dead){t.bossHvt.x=t.x;t.bossHvt.z=t.z;t.bossHvt.g.position.set(t.x,0,t.z)}
-  const screenPos=new THREE.Vector3(t.x,1,t.z).project(camera);
-  const playerVisible=!!player&&!player.dead&&screenPos.z>-1&&screenPos.z<1&&Math.abs(screenPos.x)<1.08&&Math.abs(screenPos.y)<1.08&&Math.hypot(player.x-t.x,player.z-t.z)<48&&combatSight(t.x,t.z,player.x,player.z);
+ for(const t of tacticals){
+  if(t.dead)continue;
+  t.cool=Math.max(-1,(t.cool||0)-dt);
   const targets=[player,...allies].filter(e=>e&&!e.dead);
   if(!targets.length)continue;
-  targets.sort((a,b)=>Math.hypot(a.x-t.x,a.z-t.z)-Math.hypot(b.x-t.x,b.z-t.z));
-  const target=playerVisible?player:targets[0];
+  // Always run the turret independently of driving/pathfinding.
+  const visibleTargets=targets.filter(e=>Math.hypot(e.x-t.x,e.z-t.z)<63&&combatSight(t.x,t.z,e.x,e.z));
+  const target=visibleTargets.includes(player)?player:(visibleTargets[0]||player);
   const dx=target.x-t.x,dz=target.z-t.z,d=Math.hypot(dx,dz);
-  t.turn-=dt;t.routeTimer-=dt;const oldTX=t.x,oldTZ=t.z;
+  const aim=Math.atan2(-dx,-dz)-t.group.rotation.y;
+  t.mount.rotation.y+=Math.atan2(Math.sin(aim-t.mount.rotation.y),Math.cos(aim-t.mount.rotation.y))*Math.min(1,dt*13);
+  if(visibleTargets.includes(target)&&t.cool<=0){
+   // Continuous suppressive bursts when a target is visible.
+   const angle=Math.atan2(-dx,-dz)+rng(-.09,.09),bx=-Math.sin(angle),bz=-Math.cos(angle);
+   const m=makeTracer(true);m.quaternion.setFromUnitVectors(new THREE.Vector3(1,0,0),new THREE.Vector3(bx,0,bz));
+   m.position.set(t.x+bx*1.1,1.85,t.z+bz*1.1);scene.add(m);
+   bullets.push({mesh:m,x:m.position.x,z:m.position.z,vx:bx*58,vz:bz*58,life:1.05,fromEnemy:true,damage:14,tower:true});
+   t.cool=rng(.085,.135);
+  }
+  if(t.bossHvt&&!t.bossHvt.dead){t.bossHvt.x=t.x;t.bossHvt.z=t.z;t.bossHvt.g.position.set(t.x,0,t.z)}
+  // Driveable space is stricter than infantry space.
+  const free=(x,z)=>!blocked(x,z,2.12,t);
+  const reposition=()=>{
+   for(let r=2;r<26;r+=2)for(let k=0;k<32;k++){
+    const ang=k*Math.PI/16,xx=t.x+Math.cos(ang)*r,zz=t.z+Math.sin(ang)*r;
+    if(free(xx,zz)){t.x=xx;t.z=zz;t.group.position.set(xx,0,zz);t.route=[];t.goal=null;t.routeTimer=0;return true}
+   }
+   return false;
+  };
+  if(!free(t.x,t.z))reposition();
+  t.routeTimer=(t.routeTimer||0)-dt;
   if(!t.goal||Math.hypot(t.goal.x-t.x,t.goal.z-t.z)<4){
-   // Visit distant patrol sectors in sequence rather than orbiting the player.
+   t.goal=null;
    for(let i=0;i<tacticalPatrolPoints.length;i++){
     t.patrolIndex=(t.patrolIndex+1)%tacticalPatrolPoints.length;
     const [px,pz]=tacticalPatrolPoints[t.patrolIndex].map(arenaCoord);
-    if(Math.hypot(px-t.x,pz-t.z)>14&&!blocked(px,pz,2.2,t)){t.goal={x:px,z:pz};break;}
+    if(free(px,pz)&&Math.hypot(px-t.x,pz-t.z)>12){t.goal={x:px,z:pz};break}
    }
    t.route=[];t.routeTimer=0;
   }
   if(!t.goal){
-    const opts=[];
-    for(let k=0;k<24;k++){const a=k*Math.PI/12,px=arenaCoord(30)*Math.cos(a),pz=arenaCoord(30)*Math.sin(a);if(!blocked(px,pz,2.2,t)&&Math.hypot(px-t.x,pz-t.z)>12)opts.push({x:px,z:pz})}
-    if(opts.length)t.goal=opts[Math.floor(Math.random()*opts.length)];
-    else continue;
+   // Retry next frame, but never stop firing because of missing patrol path.
+   continue;
   }
-  if(t.routeTimer<=0){t.route=tacticalRoute(t,t.goal.x,t.goal.z);t.routeTimer=2.0;}
-  while(t.route.length&&Math.hypot(t.route[0].x-t.x,t.route[0].z-t.z)<2.3)t.route.shift();
-  const waypoint=t.route[0]||t.goal;
-  let vx=waypoint.x-t.x,vz=waypoint.z-t.z,len=Math.hypot(vx,vz);
-  if(len>.35){
-   vx/=len;vz/=len;const speed=4.15;
+  if(t.routeTimer<=0||!t.route||!t.route.length){
+   t.route=tacticalRoute(t,t.goal.x,t.goal.z);
+   t.routeTimer=1.8;
+  }
+  while(t.route.length&&Math.hypot(t.route[0].x-t.x,t.route[0].z-t.z)<2.4)t.route.shift();
+  const wp=t.route[0]||t.goal;
+  let vx=wp.x-t.x,vz=wp.z-t.z,len=Math.hypot(vx,vz);
+  const oldX=t.x,oldZ=t.z;
+  const speed=5.4;
+  if(len>.3){
+   vx/=len;vz/=len;
+   // Avoid cutting corners: test the full vehicle radius ahead.
    const candidates=[[vx,vz],[-vz,vx],[vz,-vx],[(vx-vz)*.707,(vz+vx)*.707],[(vx+vz)*.707,(vz-vx)*.707]];
    let moved=false;
    for(const [ux,uz] of candidates){
     const nx=t.x+ux*speed*dt,nz=t.z+uz*speed*dt;
-    if(blocked(nx,nz,1.65,t)||blocked(t.x+ux*1.5,t.z+uz*1.5,1.65,t))continue;
+    if(!free(nx,nz)||!free(t.x+ux*2.4,t.z+uz*2.4))continue;
     t.x=nx;t.z=nz;t.group.position.set(nx,0,nz);
-    t.trail+=dt;if(t.trail>.25){t.trail=0;vehicleDust(t.x,t.z,t.group.rotation.y);}
     const heading=Math.atan2(-uz,ux);
-    t.group.rotation.y+=Math.atan2(Math.sin(heading-t.group.rotation.y),Math.cos(heading-t.group.rotation.y))*Math.min(1,dt*3.0);
+    t.group.rotation.y+=Math.atan2(Math.sin(heading-t.group.rotation.y),Math.cos(heading-t.group.rotation.y))*Math.min(1,dt*3.8);
+    t.trail=(t.trail||0)+dt;
+    if(t.trail>.25){t.trail=0;vehicleDust(t.x,t.z,t.group.rotation.y)}
     moved=true;break;
    }
-   if(!moved||Math.hypot(t.x-oldTX,t.z-oldTZ)<dt*.5){t.stuck+=dt;}else t.stuck=Math.max(0,t.stuck-dt*2);
-   if(t.stuck>1.2){t.routeTimer=0;t.route=[];t.stuck=0;t.stuckCount=(t.stuckCount||0)+1;
-     if(t.stuckCount>2){t.goal=null;t.stuckCount=0;}
-   }
+   if(!moved)t.routeTimer=0;
   }
-  // Prioritize the player when visible; never fire through buildings.
-  const canFire=d<44&&combatSight(t.x,t.z,target.x,target.z)&&(target!==player||playerVisible);
-  const aim=Math.atan2(-dx,-dz)-t.group.rotation.y;
-  t.mount.rotation.y+=Math.atan2(Math.sin(aim-t.mount.rotation.y),Math.cos(aim-t.mount.rotation.y))*Math.min(1,dt*10);
-  t.cool-=dt;
-  if(canFire&&t.cool<=0){
-   const angle=Math.atan2(-dx,-dz)+rng(-.075,.075),bx=-Math.sin(angle),bz=-Math.cos(angle);
-   const m=makeTracer(true);m.quaternion.setFromUnitVectors(new THREE.Vector3(1,0,0),new THREE.Vector3(bx,0,bz));
-   m.position.set(t.x+bx*1.0,1.85,t.z+bz*1.0);scene.add(m);
-   bullets.push({mesh:m,x:m.position.x,z:m.position.z,vx:bx*53,vz:bz*53,life:.82,fromEnemy:true,damage:12,tower:true});
-   t.cool=rng(.10,.17);
+  const advanced=Math.hypot(t.x-oldX,t.z-oldZ);
+  t.stuck=advanced<dt*.55?(t.stuck||0)+dt:Math.max(0,(t.stuck||0)-dt*3);
+  if(t.stuck>.9){
+   t.stuck=0;t.stuckCount=(t.stuckCount||0)+1;
+   t.route=[];t.routeTimer=0;
+   // Physically reverse out of tight spaces before replanning.
+   let reversed=false;
+   const heading=t.group.rotation.y,ux=-Math.cos(heading),uz=Math.sin(heading);
+   for(const [rx,rz] of [[ux,uz],[-uz,ux],[uz,-ux],[-ux,-uz]]){
+    const nx=t.x+rx*2.8,nz=t.z+rz*2.8;
+    if(free(nx,nz)){t.x=nx;t.z=nz;t.group.position.set(nx,0,nz);reversed=true;break}
+   }
+   if(!reversed)reposition();
+   if(t.stuckCount>=2){t.goal=null;t.stuckCount=0}
   }
  }
 }
