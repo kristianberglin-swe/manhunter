@@ -1,4 +1,4 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#171811"><title>MANHUNTER 16.9 — Tactical fix</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#181711;color:#fff;font-family:system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:12px;pointer-events:none;gap:8px}.panel{background:#101813d9;border:1px solid #a99c73a0;border-radius:10px;padding:9px 12px;box-shadow:0 4px 20px #0009;font-size:12px;letter-spacing:.07em}.panel b{font-size:17px;letter-spacing:.03em}.panel small{color:#d6c9a8}.bar{height:7px;background:#333;border-radius:8px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#d43e2f,#edb76d)}#mission{text-align:right}#message{position:absolute;top:24%;left:50%;transform:translateX(-50%);font-size:25px;font-weight:900;text-shadow:0 3px 12px black;text-align:center;pointer-events:none;white-space:nowrap}#actionFeedback{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:8;pointer-events:none;opacity:0;background:#161c17df;border:1px solid #e2bd79;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:900;letter-spacing:.07em;white-space:nowrap}#controls{position:absolute;inset:0;pointer-events:none}.stick{z-index:5;position:absolute;bottom:max(24px,env(safe-area-inset-bottom));width:142px;height:142px;border:2px solid #ffffff77;border-radius:50%;background:#141c1b55;pointer-events:auto;touch-action:none}.stick:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;left:43px;top:43px;background:#dfd5b7b9;border:2px solid white;transform:translate(var(--dx,0px),var(--dy,0px))}.stick.left{left:18px}.stick.right{right:18px}#fire{z-index:12;position:absolute;right:20px;bottom:255px;pointer-events:auto;width:74px;height:74px;border-radius:50%;border:2px solid #f4c77c;background:#812b20e8;color:#fff;font-weight:900;font-size:14px;touch-action:none;user-select:none;box-shadow:0 0 18px #0008}#fire:active{background:#e14b2e}#grenade{z-index:12;touch-action:none;user-select:none;position:absolute;right:160px;bottom:35px;pointer-events:auto;border:1px solid #d7ad6c;background:#201c13cb;color:white;border-radius:50%;width:64px;height:64px;font-weight:800}#rpg{z-index:12;touch-action:none;user-select:none;position:absolute;right:232px;bottom:35px;pointer-events:auto;border:2px solid #d18d4d;background:#32201bdc;color:#ffe1aa;border-radius:50%;width:64px;height:64px;font-weight:900;font-size:12px;box-shadow:0 0 12px #db772755}#reload{z-index:12;touch-action:none;user-select:none;position:absolute;right:22px;bottom:178px;pointer-events:auto;border:1px solid #ffffff88;background:#171717bb;color:white;border-radius:12px;padding:12px;font-weight:800}#intro{position:absolute;inset:0;background:linear-gradient(135deg,#121710ee,#3b3024d9);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;z-index:5}h1{font-size:clamp(42px,9vw,110px);margin:0;font-weight:1000;letter-spacing:-.05em;color:#f4e7cd;text-shadow:0 5px 0 #6a211b,0 10px 30px #000}h2{letter-spacing:.35em;color:#d1ad76}#start,#next{border:2px solid #e7a759;border-radius:10px;background:#8f231c;color:white;padding:15px 32px;font-size:18px;font-weight:900;cursor:pointer}#next{display:none;position:absolute;top:60%;left:50%;transform:translateX(-50%);z-index:4}#error{position:absolute;inset:0;display:none;place-items:center;padding:25px;background:#151515;z-index:9;text-align:center}#pause{pointer-events:auto;cursor:pointer;border:1px solid #aaa;background:#111b;border-radius:8px;color:white;padding:10px 14px}@media(max-width:650px){.panel{padding:6px 8px;font-size:10px}.panel b{font-size:13px}.stick{width:112px;height:112px}.stick:after{left:33px;top:33px;width:42px;height:42px}.stick.left{left:10px}.stick.right{right:10px}#fire{right:14px;bottom:215px;width:61px;height:61px;font-size:12px}#grenade{right:133px;bottom:116px;width:52px;height:52px;font-size:11px}#reload{right:14px;bottom:150px;padding:8px;font-size:11px}#hud{padding:6px}#message{font-size:19px}}#intro{overflow-y:auto;justify-content:safe center;overscroll-behavior:contain}#intro h1{font-size:clamp(28px,7vh,70px)}#intro h2{font-size:clamp(11px,2.5vh,20px);margin:5px 0}#intro p{margin:5px 0;font-size:12px}#assetbox{max-height:30vh;overflow-y:auto;margin:5px auto!important;padding:7px!important}#start{position:sticky;bottom:4px;flex-shrink:0;z-index:10;box-shadow:0 4px 18px #000;padding:12px 28px}@media(max-height:450px){#intro{padding:5px 16px;justify-content:flex-start}#intro h1{font-size:28px}#intro h2{font-size:12px}#assetbox{max-height:20vh}#intro p{font-size:10px}} 
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#171811"><title>MANHUNTER 17.0 — Tactical fix</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#181711;color:#fff;font-family:system-ui,Arial;touch-action:none}canvas{display:block}#hud{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:12px;pointer-events:none;gap:8px}.panel{background:#101813d9;border:1px solid #a99c73a0;border-radius:10px;padding:9px 12px;box-shadow:0 4px 20px #0009;font-size:12px;letter-spacing:.07em}.panel b{font-size:17px;letter-spacing:.03em}.panel small{color:#d6c9a8}.bar{height:7px;background:#333;border-radius:8px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#d43e2f,#edb76d)}#mission{text-align:right}#message{position:absolute;top:24%;left:50%;transform:translateX(-50%);font-size:25px;font-weight:900;text-shadow:0 3px 12px black;text-align:center;pointer-events:none;white-space:nowrap}#actionFeedback{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:8;pointer-events:none;opacity:0;background:#161c17df;border:1px solid #e2bd79;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:900;letter-spacing:.07em;white-space:nowrap}#controls{position:absolute;inset:0;pointer-events:none}.stick{z-index:5;position:absolute;bottom:max(24px,env(safe-area-inset-bottom));width:142px;height:142px;border:2px solid #ffffff77;border-radius:50%;background:#141c1b55;pointer-events:auto;touch-action:none}.stick:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;left:43px;top:43px;background:#dfd5b7b9;border:2px solid white;transform:translate(var(--dx,0px),var(--dy,0px))}.stick.left{left:18px}.stick.right{right:18px}#fire{z-index:12;position:absolute;right:20px;bottom:255px;pointer-events:auto;width:74px;height:74px;border-radius:50%;border:2px solid #f4c77c;background:#812b20e8;color:#fff;font-weight:900;font-size:14px;touch-action:none;user-select:none;box-shadow:0 0 18px #0008}#fire:active{background:#e14b2e}#grenade{z-index:12;touch-action:none;user-select:none;position:absolute;right:160px;bottom:35px;pointer-events:auto;border:1px solid #d7ad6c;background:#201c13cb;color:white;border-radius:50%;width:64px;height:64px;font-weight:800}#rpg{z-index:12;touch-action:none;user-select:none;position:absolute;right:232px;bottom:35px;pointer-events:auto;border:2px solid #d18d4d;background:#32201bdc;color:#ffe1aa;border-radius:50%;width:64px;height:64px;font-weight:900;font-size:12px;box-shadow:0 0 12px #db772755}#reload{z-index:12;touch-action:none;user-select:none;position:absolute;right:22px;bottom:178px;pointer-events:auto;border:1px solid #ffffff88;background:#171717bb;color:white;border-radius:12px;padding:12px;font-weight:800}#intro{position:absolute;inset:0;background:linear-gradient(135deg,#121710ee,#3b3024d9);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;z-index:5}h1{font-size:clamp(42px,9vw,110px);margin:0;font-weight:1000;letter-spacing:-.05em;color:#f4e7cd;text-shadow:0 5px 0 #6a211b,0 10px 30px #000}h2{letter-spacing:.35em;color:#d1ad76}#start,#next{border:2px solid #e7a759;border-radius:10px;background:#8f231c;color:white;padding:15px 32px;font-size:18px;font-weight:900;cursor:pointer}#next{display:none;position:absolute;top:60%;left:50%;transform:translateX(-50%);z-index:4}#error{position:absolute;inset:0;display:none;place-items:center;padding:25px;background:#151515;z-index:9;text-align:center}#pause{pointer-events:auto;cursor:pointer;border:1px solid #aaa;background:#111b;border-radius:8px;color:white;padding:10px 14px}@media(max-width:650px){.panel{padding:6px 8px;font-size:10px}.panel b{font-size:13px}.stick{width:112px;height:112px}.stick:after{left:33px;top:33px;width:42px;height:42px}.stick.left{left:10px}.stick.right{right:10px}#fire{right:14px;bottom:215px;width:61px;height:61px;font-size:12px}#grenade{right:133px;bottom:116px;width:52px;height:52px;font-size:11px}#reload{right:14px;bottom:150px;padding:8px;font-size:11px}#hud{padding:6px}#message{font-size:19px}}#intro{overflow-y:auto;justify-content:safe center;overscroll-behavior:contain}#intro h1{font-size:clamp(28px,7vh,70px)}#intro h2{font-size:clamp(11px,2.5vh,20px);margin:5px 0}#intro p{margin:5px 0;font-size:12px}#assetbox{max-height:30vh;overflow-y:auto;margin:5px auto!important;padding:7px!important}#start{position:sticky;bottom:4px;flex-shrink:0;z-index:10;box-shadow:0 4px 18px #000;padding:12px 28px}@media(max-height:450px){#intro{padding:5px 16px;justify-content:flex-start}#intro h1{font-size:28px}#intro h2{font-size:12px}#assetbox{max-height:20vh}#intro p{font-size:10px}} 
 #bossHud{position:absolute;top:78px;left:50%;transform:translateX(-50%);width:min(520px,70vw);z-index:7;pointer-events:none;display:none;gap:5px;flex-direction:column}
 .bossEntry{background:#090e10dd;border:1px solid #b77d4c;border-radius:7px;padding:5px 9px;color:#ffe0bd;font:700 11px system-ui;letter-spacing:.08em;box-shadow:0 2px 12px #0008}
 .bossEntry .bossLine{display:flex;justify-content:space-between;gap:12px}
@@ -577,126 +577,8 @@ function openUpgrades(){awardMissionXp();renderUpgrades();$('next').style.displa
 $('upgradeNext').onclick=()=>{if(briefingRunning)return;$('upgradeScreen').classList.remove('active');level++;runMissionBriefing(false)};
 function completeHVT(){if(!hvtDead)return;game=false;playSquadVoice(missionAccomplishedVoice);
  if(level===10){awardMissionXp();showFinalVictory();return;}$('message').textContent='UPPDRAG SLUTFÖRT · '+Math.floor(time/60)+'m '+Math.floor(time%60)+'s · '+missionKills+' ELIMINERADE · '+score.toLocaleString('sv-SE')+' POÄNG';$('next').style.display='block';$('next').textContent='STARTA NÄSTA LEVEL →';}
-function perimeterFence(){
- // Visible chain-link perimeter, aligned just outside the existing movement bounds.
- const postMat=new THREE.MeshStandardMaterial({color:0x595c55,metalness:.55,roughness:.75});
- const meshMat=new THREE.MeshBasicMaterial({color:0x737b70,transparent:true,opacity:.46,side:THREE.DoubleSide,depthWrite:false});
- const wireMat=new THREE.MeshStandardMaterial({color:0x6c7169,metalness:.7,roughness:.6});
- const fence=new THREE.Group();scene.add(fence);decor.push(fence);
- function side(x1,z1,x2,z2){
-  const len=Math.hypot(x2-x1,z2-z1),segments=Math.ceil(len/3.6);
-  const angle=Math.atan2(-(z2-z1),x2-x1);
-  for(let i=0;i<=segments;i++){
-   const t=i/segments,x=x1+(x2-x1)*t,z=z1+(z2-z1)*t;
-   box(.11,2.65,.11,postMat,x,1.325,z,fence);
-  }
-  for(let i=0;i<segments;i++){
-   const t=(i+.5)/segments,x=x1+(x2-x1)*t,z=z1+(z2-z1)*t;
-   const panel=new THREE.Mesh(new THREE.PlaneGeometry(len/segments,2.2,12,7),meshMat);
-   panel.position.set(x,1.24,z);panel.rotation.y=angle;fence.add(panel);
-   // Crossed thin strands make the wire mesh readable from the overhead camera.
-   const strandLen=Math.hypot(len/segments,2.2);
-   for(let j=0;j<3;j++){
-    const line=new THREE.Mesh(new THREE.BoxGeometry(strandLen,.014,.014),wireMat);
-    line.position.set(x,0.7+j*.52,z);line.rotation.y=angle;line.rotation.z=(j%2?-.17:.17);fence.add(line);
-   }
-  }
- }
- side(-42.4,-41.4,42.4,-41.4);side(42.4,-41.4,42.4,41.4);
- side(42.4,41.4,-42.4,41.4);side(-42.4,41.4,-42.4,-41.4);
-}
-// Each mission uses a distinct, reproducible layout, with rotating outskirts and landmarks.
-function arenaScale(){return 1+Math.min(10,Math.max(1,level)-1)*(.5/9)}
-function arenaHalfX(){return 42*arenaScale()}
-function arenaHalfZ(){return 41*arenaScale()}
-function arenaCoord(v){return v*arenaScale()}
-function missionLayout(){
- const layouts=[
-  {name:'Ökenpostering',rot:0,mirror:false,outer:[[33,-30,5,6],[-29,-22,7,7],[29,-22,8,6],[-29,24,8,7],[30,24,8,7],[-2,-32,7,6],[2,31,9,6],[-35,1,6,6],[35,-3,6,7]],inner:[[-9,-7,8,6],[9,-7,7,7],[-9,8,7,6],[10,9,9,6],[1,-14,6,5]],hvt:0},
-  {name:'Industrikomplex',rot:1,mirror:false,outer:[[32,27,8,6],[-32,25,6,9],[-33,-28,7,7],[29,-29,9,6],[0,34,11,5],[-36,1,5,10],[36,0,6,8]],inner:[[-17,-10,10,5],[0,-13,6,10],[17,-8,8,7],[-17,11,7,9],[2,12,11,6],[19,14,6,7]],hvt:2},
-  {name:'Ruinområdet',rot:2,mirror:true,outer:[[32,-30,7,7],[-31,-30,9,6],[-32,29,6,8],[31,29,8,8],[-1,-35,9,5],[1,35,7,6],[-36,3,6,6],[36,-5,7,6]],inner:[[-17,-16,7,7],[-4,-12,5,5],[12,-16,9,5],[-16,3,8,6],[1,3,6,9],[18,6,7,7],[-8,19,10,6],[11,20,8,6]],hvt:3},
-  {name:'Militärförläggning',rot:3,mirror:false,outer:[[34,-27,7,8],[-32,-26,8,7],[-31,28,9,6],[32,29,7,7],[-1,-33,11,6],[1,34,10,6]],inner:[[-20,-7,7,14],[-7,-7,7,14],[9,-7,7,14],[22,-7,7,14],[-14,14,11,7],[14,14,11,7]],hvt:1},
-  {name:'Stenstaden',rot:0,mirror:true,outer:[[-33,-30,7,7],[33,-29,8,6],[-32,29,7,8],[32,29,9,6],[-2,-34,7,6],[3,34,8,6]],inner:[[-19,-18,8,7],[-4,-18,7,8],[13,-18,8,7],[-20,0,8,8],[-3,0,7,7],[15,0,9,7],[-18,18,8,7],[-1,18,7,8],[17,18,8,7]],hvt:2}
- ];
- const l=layouts[(level-1)%layouts.length];const cycle=Math.floor((level-1)/layouts.length);
- const rotation=(l.rot+cycle)%4,mirror=cycle%2?!l.mirror:l.mirror;
- const pt=(x,z)=>{if(mirror)x=-x;for(let i=0;i<rotation;i++){const old=x;x=-z;z=old;}return [x*arenaScale(),z*arenaScale()]};
- return {...l,pt,cycle};
-}
-let currentMissionLayout=null;
-// Visual level identity: lightweight meshes, no additional collision objects.
-function makeLevelScenery(){
- const theme=levelThemes[(level-1)%levelThemes.length],kind=theme.detail;
- const add=(g)=>{scene.add(g);decor.push(g);return g};
- const mat=(hex)=>new THREE.MeshStandardMaterial({color:hex,roughness:.94,metalness:kind==='industrial'?.15:0});
- const accent=mat(theme.accent),road=mat(theme.road),foliage=mat(theme.foliage);
- function slab(x,z,w,d,m=road,y=.085){const g=new THREE.Mesh(new THREE.BoxGeometry(w*arenaScale(),.025,d*arenaScale()),m);g.position.set(arenaCoord(x),y,arenaCoord(z));g.receiveShadow=true;add(g)}
- function prop(x,z,w,h,d,m=accent){const g=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);g.position.set(arenaCoord(x),h/2,arenaCoord(z));g.castShadow=true;add(g)}
- function disc(x,z,r,m=foliage){const g=new THREE.Mesh(new THREE.CylinderGeometry(r,r,.04,7),m);g.position.set(arenaCoord(x),.025,arenaCoord(z));add(g)}
- if(['highway','industrial','harbor','palace','fortress'].includes(kind)){
-  const roads=kind==='highway'?[[0,0,11,84],[0,0,84,6]]:kind==='harbor'?[[0,0,9,84],[-18,0,6,84]]:[[0,0,5,84],[0,0,84,5]];
-  for(const [x,z,w,d] of roads)slab(x,z,w,d);
-  if(kind==='highway')for(let z=-37;z<38;z+=8)slab(0,z,0.22,3.5,mat(0xd5c6a4),.04);
- }
- if(kind==='jungle'||kind==='snow'){
-  for(let i=0;i<90;i++){
-   const x=rng(-39,39),z=rng(-39,39);
-   if(blocked(x,z,1.2)||Math.hypot(x,z-3)<10)continue;
-   disc(x,z,rng(.45,1.5),kind==='snow'?mat(i%3?0xc2d5d9:0xe6eff0):foliage);
-  }
- }
- if(kind==='canyon'){
-  for(let i=0;i<58;i++){
-   const x=rng(-40,40),z=rng(-40,40);
-   if(blocked(x,z,1)||Math.hypot(x,z-3)<12)continue;
-   prop(x,z,rng(.4,1.4),rng(.25,.85),rng(.5,1.6),i%2?accent:mat(0x745341));
-  }
- }
- if(kind==='industrial'||kind==='harbor'){
-  const colors=[mat(0x576977),mat(0x9a6d43),mat(0x657e6b)];
-  for(let i=0;i<24;i++){
-   const x=rng(-38,38),z=rng(-38,38);
-   if(blocked(x,z,2)||Math.hypot(x,z-3)<11)continue;
-   prop(x,z,2.6,1.1,1.2,colors[i%3]);
-  }
- }
- // Level 4 / Cartel Town: avoid large flat overlay meshes, which used to
- // intersect houses and create conspicuous colored rectangles on the ground.
- // Small ground-level rubble is drawn only on unobstructed terrain.
- if(kind==='town'){
-  const rubbleColors=[mat(0xbca17c),mat(0x967c60),mat(0xd0b18a)];
-  for(let i=0;i<32;i++){
-   const x=rng(-38,38),z=rng(-38,38);
-   if(blocked(arenaCoord(x),arenaCoord(z),2.1)||Math.hypot(x,z-3)<9)continue;
-   const piece=new THREE.Mesh(new THREE.BoxGeometry(rng(.16,.45),.045,rng(.17,.52)),rubbleColors[i%3]);
-   piece.position.set(arenaCoord(x),.048,arenaCoord(z));
-   piece.rotation.y=rng(-3.14,3.14);
-   piece.receiveShadow=true;add(piece);
-  }
- }
- if(kind==='palace'||kind==='fortress'){
-  for(let i=0;i<16;i++){
-   const x=-35+(i%8)*10,z=i<8?-39:39;
-   prop(x,z,kind==='fortress'?1.8:1.0,kind==='fortress'?1.6:.6,1.2,accent);
-  }
- }
- if(kind==='snow')for(let i=0;i<115;i++){
-  const x=rng(-40,40),z=rng(-40,40);
-  if(blocked(x,z,.4))continue;
-  slab(x,z,rng(.12,.55),rng(.12,.6),mat(i%2?0xf3f6f6:0xb9cfd7),.03);
- }
- if(kind==='harbor')for(let i=0;i<12;i++){
-  const x=-40+i*7;
-  prop(x,-40,.12,2.6,.12,mat(0xb8b18b));
-  const lamp=new THREE.Mesh(new THREE.SphereGeometry(.18,6,4),new THREE.MeshBasicMaterial({color:0xffe6a6}));lamp.position.set(x,2.6,-40);add(lamp);
- }
- if(kind==='desert'||kind==='highway')for(let i=0;i<38;i++){
-  const x=rng(-40,40),z=rng(-40,40);if(blocked(x,z,.7))continue;
-  disc(x,z,rng(.12,.35),accent);
- }
-}
 function makeWorld(){
- turrets.length=0;clearWorld();perimeterFence();
+ turrets.length=0;clearWorld();
  const l=missionLayout();currentMissionLayout=l;
  for(const [x,z,w,d] of [...l.outer,...l.inner]){const [px,pz]=l.pt(x,z);structure(px,pz,w*arenaScale(),d*arenaScale(),(level+x+z)%3)}
  const towerPositions=[[17,-2],[-18,3],[33,-19],[-34,23],[4,-35]];
@@ -2284,7 +2166,7 @@ document.getElementById('loadDemo').onclick=async()=>{
 makeWorld();player=soldier('player',0,3);camera.position.set(0,55,13);camera.lookAt(0,0,0);updateHud();
 
 loadEmbeddedSoldier();
-</script><div id="mh-build-version" style="position:fixed;right:5px;bottom:4px;z-index:99999;pointer-events:none;color:#fff;background:#111b;padding:3px 6px;border-radius:3px;font:10px monospace;opacity:.75">MANHUNTER 16.9</div>
+</script><div id="mh-build-version" style="position:fixed;right:5px;bottom:4px;z-index:99999;pointer-events:none;color:#fff;background:#111b;padding:3px 6px;border-radius:3px;font:10px monospace;opacity:.75">MANHUNTER 17.0</div>
 <div id="bossHud" aria-live="off"></div><div id="bossSmokeWarning">RÖKGRANAT!</div><div id="mhRotatePrompt" role="status" aria-label="Vrid telefonen till horisontellt läge">
  <div class="mh-phone" aria-hidden="true"></div>
  <h2>VRID TELEFONEN</h2>
